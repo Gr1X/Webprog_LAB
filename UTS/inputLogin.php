@@ -13,7 +13,7 @@
         
         .body {
             font-family: 'Rubik', sans-serif;
-            background-image: url('../asset/bg.jpg');
+            background-image: url('../element/bg.jpg');
             background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
