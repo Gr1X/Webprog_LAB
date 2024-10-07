@@ -30,7 +30,7 @@
     <div class="container">
         <div class="bg-light col-lg-6 col-md-8 col-sm-10 col-12 mx-auto rounded-3 shadow p-4">
             <div class="title text-center mb-4">
-                <h1>Login Duls </h1>
+                <h1>Login</h1>
                 <p class="fw-semibold">Hello, enter your details to sign in to your account.</p>
             </div>
             
