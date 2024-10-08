@@ -23,9 +23,9 @@
             outline: none;
             box-shadow: none;
         }
-
     </style>
 </head>
+
 <body class="body d-flex justify-content-center align-items-center min-vh-100">
     <div class="container">
         <div class="bg-light col-lg-6 col-md-8 col-sm-10 col-12 mx-auto rounded-3 shadow p-4">
