@@ -36,37 +36,46 @@
         <div class="bg-light col-lg-6 col-md-8 col-sm-10 col-12 mx-auto rounded-3 shadow p-4">
             <div class="title text-center mb-4">
                 <h1>Register Account</h1>
-                <p class="fw-semibold">Hello, enter your details to register.</p>
+                <p class="">Hello, enter your details to register.</p>
             </div>
             
             <div class="d-flex justify-content-center">
                 <div class="col-8">
-                    <div class="input-group mb-3">
-                        <div class="d-flex justify-content-center p-2">
-                            <i class="fa-solid fa-user"></i>
+                    <form action="register_process.php" method="post">
+                        <div class="input-group mb-3">
+                            <div class="d-flex justify-content-center p-2">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <input type="email" class="email form-control border border-0 border-bottom border-2 bg-light " placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
                         </div>
-                        <input type="email" class="email form-control border border-0 border-bottom border-2 bg-light " placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
-                    </div>
-
-                    <div class="input-group gap-3 mb-4">
-                        <input type="text" aria-label="First name" placeholder="First Name" class="firstName form-control border border-0 border-bottom border-2 bg-light">
-                        <input type="text" aria-label="Last name" placeholder="Last Name" class="lastName form-control border border-0 border-bottom border-2 bg-light">
-                    </div>
     
-                    <div class="input-group mb-3">
-                        <div class="d-flex justify-content-center p-2">
-                            <i class="fa-solid fa-lock text-center"></i>
+                        <div class="input-group mb-3">
+                            <div class="d-flex justify-content-center p-2">
+                                <i class="fa-solid fa-user text-center"></i>
+                            </div>
+                            <input type="text" class="pass form-control border border-0 border-bottom border-2 bg-light " placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
-                        <input type="password" class="pass form-control border border-0 border-bottom border-2 bg-light" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <input type="password" class="pass form-control border border-0 border-bottom border-2 bg-light" placeholder="Re-Enter Password" aria-label="Password" aria-describedby="basic-addon1">
-                    </div>
-                    
-                    <div class="d-block my-3">
-                        <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-semibold">Register</button>
-                    </div>
+    
+                        <div class="input-group gap-3 mb-4">
+                            <input type="text" aria-label="First name" placeholder="First Name" class="firstName form-control border border-0 border-bottom border-2 bg-light">
+                            <input type="text" aria-label="Last name" placeholder="Last Name" class="lastName form-control border border-0 border-bottom border-2 bg-light">
+                        </div>
+        
+                        <div class="input-group mb-3">
+                            <div class="d-flex justify-content-center p-2">
+                                <i class="fa-solid fa-lock text-center"></i>
+                            </div>
+                            <input type="password" class="pass form-control border border-0 border-bottom border-2 bg-light" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                        </div>
+    
+                        <div class="input-group mb-3">
+                            <input type="password" class="pass form-control border border-0 border-bottom border-2 bg-light" placeholder="Re-Enter Password" aria-label="Password" aria-describedby="basic-addon1">
+                        </div>
+                        
+                        <div class="d-block my-3">
+                            <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-semibold">Register</button>
+                        </div>
+                    </form>
 
                     
                     <div class="text-center">

@@ -31,16 +31,23 @@
         <div class="bg-light col-lg-6 col-md-8 col-sm-10 col-12 mx-auto rounded-3 shadow p-4">
             <div class="title text-center mb-4">
                 <h1>Log-In</h1>
-                <p class="fw-semibold">Hello, enter your details to sign in to your account.</p>
+                <p class="">Hello, enter your details to sign in to your account.</p>
             </div>
             
             <div class="d-flex justify-content-center">
                 <div class="col-8">
                     <div class="input-group mb-3">
                         <div class="d-flex justify-content-center p-2">
-                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-envelope"></i>
                         </div>
                         <input type="email" class="email form-control border border-0 border-bottom border-2 bg-light " placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="d-flex justify-content-center p-2">
+                            <i class="fa-solid fa-user text-center"></i>
+                        </div>
+                        <input type="text" class="pass form-control border border-0 border-bottom border-2 bg-light " placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
     
                     <div class="input-group mb-3">

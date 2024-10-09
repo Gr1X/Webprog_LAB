@@ -1,0 +1,8 @@
+CREATE TABLE Account(
+    id_account INT Auto_increment,
+    email VARCHAR(100) NOT NULL,
+    namaDepan VARCHAR(100) NOT NULL,
+    namaBelakang VARCHAR(100) NOT NULL,
+    
+
+)
