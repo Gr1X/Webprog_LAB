@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(isset($_SESSION['id_account'])){
+  header('location: dashboard.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,21 +49,21 @@
                             <div class="d-flex justify-content-center p-2">
                                 <i class="fa-solid fa-envelope"></i>
                             </div>
-                            <input type="email" class="email form-control border border-0 border-bottom border-2 bg-light" name="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                            <input type="email" required class="email form-control border border-0 border-bottom border-2 bg-light" name="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
                         </div>
     
-                        <div class="input-group mb-3">
+                        <!-- <div class="input-group mb-3">
                             <div class="d-flex justify-content-center p-2">
                                 <i class="fa-solid fa-user text-center"></i>
                             </div>
-                            <input type="text" class="pass form-control border border-0 border-bottom border-2 bg-light" name="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                        </div>
+                            <input type="text" required class="pass form-control border border-0 border-bottom border-2 bg-light" name="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        </div> -->
         
                         <div class="input-group mb-3">
                             <div class="d-flex justify-content-center p-2">
                                 <i class="fa-solid fa-lock text-center"></i>
                             </div>
-                            <input type="password" class="pass form-control border border-0 border-bottom border-2 bg-light" name="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                            <input type="password" required class="pass form-control border border-0 border-bottom border-2 bg-light" name="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
                         </div>
                         
                         <div class="d-block my-3">
