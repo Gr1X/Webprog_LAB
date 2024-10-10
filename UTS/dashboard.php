@@ -184,7 +184,7 @@
                         </div>
                     </a>
                     <div>
-                        <a href="#" class="d-flex align-items-center text-decoration-none">
+                        <a href="logout.php" class="d-flex align-items-center text-decoration-none">
                             <i class='bx bxs-log-out fs-4 text-dark text-center'></i>
                         </a>
                     </div>
@@ -328,9 +328,6 @@
                                 </tbody>
                                 </table>
                             </div>
-
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
                         </div>
                     </div>
                 </div>
