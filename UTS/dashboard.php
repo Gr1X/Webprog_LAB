@@ -174,17 +174,23 @@
             </a>
             
             <div class="log-out-container">
-                <div class="log-out-card">
-                    <img src="https://i.imgur.com/hczKIze.jpg" alt="Profile Image">
-                    <div class="log-out-info">
-                        <h6>Paul Melone</h6>
-                        <p>Python Dev</p>
+            <div class="d-flex align-items-center justify-content-between p-2 bg-light rounded" style="width: 100%;">
+                <!-- Left Side: Profile Image and Name -->
+                <a href="#" class="d-flex align-items-center" style="text-decoration: none;">
+                    <img src="https://i.imgur.com/hczKIze.jpg" alt="Profile Image" style="border-radius: 50%; width: 45px; height: 45px;">
+                    <div class="log-out-info ms-3">
+                        <h6 class="mb-0" style="color: #000; font-weight: 600;">Kelpin Jo</h6>
+                        <p class="mb-0 text-muted" style="font-size: 12px;">Python Dev</p>
                     </div>
-                    <div class="">
-                        <i class="bx bx-chevron-right log-out-icon"></i>
-                    </div>
-                </div>
+                </a>
+
+                <!-- Right Side: Logout Icon -->
+                <a href="target-page.html" class="btn btn-light p-2 d-flex align-items-center justify-content-center" style="border-radius: 10px; width: 45px; height: 45px;">
+                    <i class='bx bxs-log-out fs-4 text-dark'></i>
+                </a>
             </div>
+        </div>
+
         </nav>
     </div>
 
@@ -214,9 +220,9 @@
             </button>
             <ul class="dropdown-menu shadow">
                 <li class="d-flex justify-content-between">
-                    <a class="dropdown-item text-success" href="#">Completed</a>
+                    <label class="dropdown-item text-success" href="#">Completed</label>
                     <div class="form-check form-check-reverse d-flex align-self-center">
-                        <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                        <input class="form-check-input" type="checkbox" value="completed" id="reverseCheck1">
                     </div>
                 </li>
                 <li class="d-flex justify-content-between">

@@ -36,34 +36,37 @@
             
             <div class="d-flex justify-content-center">
                 <div class="col-8">
-                    <div class="input-group mb-3">
-                        <div class="d-flex justify-content-center p-2">
-                            <i class="fa-solid fa-envelope"></i>
-                        </div>
-                        <input type="email" class="email form-control border border-0 border-bottom border-2 bg-light" name="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
-                    </div>
+                    <form action="verifyPassword.php" method="post">
 
-                    <div class="input-group mb-3">
-                        <div class="d-flex justify-content-center p-2">
-                            <i class="fa-solid fa-user text-center"></i>
+                        <div class="input-group mb-3">
+                            <div class="d-flex justify-content-center p-2">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <input type="email" class="email form-control border border-0 border-bottom border-2 bg-light" name="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
                         </div>
-                        <input type="text" class="pass form-control border border-0 border-bottom border-2 bg-light" name="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                    </div>
     
-                    <div class="input-group mb-3">
-                        <div class="d-flex justify-content-center p-2">
-                            <i class="fa-solid fa-lock text-center"></i>
+                        <div class="input-group mb-3">
+                            <div class="d-flex justify-content-center p-2">
+                                <i class="fa-solid fa-user text-center"></i>
+                            </div>
+                            <input type="text" class="pass form-control border border-0 border-bottom border-2 bg-light" name="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
-                        <input type="password" class="pass form-control border border-0 border-bottom border-2 bg-light" name="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
-                    </div>
-                    
-                    <div class="d-block my-3">
-                        <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-semibold">Login</button>
-                    </div>
-                    
-                    <div class="text-center">
-                        <p>Don't have an account? <a href="inputRegister.php" class="fw-semiboldtext-dark link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Sign Up now.</a></p>
-                    </div>
+        
+                        <div class="input-group mb-3">
+                            <div class="d-flex justify-content-center p-2">
+                                <i class="fa-solid fa-lock text-center"></i>
+                            </div>
+                            <input type="password" class="pass form-control border border-0 border-bottom border-2 bg-light" name="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                        </div>
+                        
+                        <div class="d-block my-3">
+                            <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-semibold">Login</button>
+                        </div>
+                        
+                        <div class="text-center">
+                            <p>Don't have an account? <a href="inputRegister.php" class="fw-semiboldtext-dark link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Sign Up now.</a></p>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

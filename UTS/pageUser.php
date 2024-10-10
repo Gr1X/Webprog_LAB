@@ -48,7 +48,7 @@
     <!-- Account Header -->
     <div class="row account-header">
         <div class="my-4">
-            <a href="#" class="text-decoration-none"><i class='bx bx-left-arrow-alt'></i></a>
+            <a href="#" class="text-decoration-none"><i class='bx bx-left-arrow-alt'></i>Back to dashboard</a>
         </div>
     </div>
 
