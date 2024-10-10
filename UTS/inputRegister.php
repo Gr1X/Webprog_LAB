@@ -46,30 +46,30 @@
                             <div class="d-flex justify-content-center p-2">
                                 <i class="fa-solid fa-envelope"></i>
                             </div>
-                            <input type="email" class="email form-control border border-0 border-bottom border-2 bg-light" name="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                            <input type="email" class="email form-control border border-0 border-bottom border-2 bg-light" required name="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
                         </div>
     
                         <div class="input-group mb-3">
                             <div class="d-flex justify-content-center p-2">
                                 <i class="fa-solid fa-user text-center"></i>
                             </div>
-                            <input type="text" class="pass form-control border border-0 border-bottom border-2 bg-light" name="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                            <input type="text" class="pass form-control border border-0 border-bottom border-2 bg-light" required name="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
     
                         <div class="input-group gap-3 mb-4">
-                            <input type="text" aria-label="First name" placeholder="First Name" name="fName" class="firstName form-control border border-0 border-bottom border-2 bg-light">
-                            <input type="text" aria-label="Last name" placeholder="Last Name" name="lName" class="lastName form-control border border-0 border-bottom border-2 bg-light">
+                            <input type="text" aria-label="First name" placeholder="First Name" name="fName" class="firstName form-control border border-0 border-bottom border-2 bg-light" required>
+                            <input type="text" aria-label="Last name" placeholder="Last Name" name="lName" class="lastName form-control border border-0 border-bottom border-2 bg-light" required>
                         </div>
         
                         <div class="input-group mb-3">
                             <div class="d-flex justify-content-center p-2">
                                 <i class="fa-solid fa-lock text-center"></i>
                             </div>
-                            <input type="password" name="password" class="pass form-control border border-0 border-bottom border-2 bg-light" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                            <input type="password" name="password" class="pass form-control border border-0 border-bottom border-2 bg-light" required placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
                         </div>
     
                         <div class="input-group mb-3">
-                            <input type="password" class="pass form-control border border-0 border-bottom border-2 bg-light" placeholder="Re-Enter Password" name="repass"  aria-label="Password" aria-describedby="basic-addon1">
+                            <input type="password" class="pass form-control border border-0 border-bottom border-2 bg-light" required placeholder="Re-Enter Password" name="repass"  aria-label="Password" aria-describedby="basic-addon1">
                         </div>
                         
                         <div class="d-block my-3">
