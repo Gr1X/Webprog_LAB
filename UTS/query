@@ -8,3 +8,17 @@ CREATE TABLE Account(
     re_password VARCHAR(150) NOT NULL,
     PRIMARY KEY (id_account));
 
+CREATE TABLE itemlist(
+  id_todo INT auto_increment,
+  id_account INT NOT NULL,
+  title VARCHAR(50) NOT NULL,               
+  progress VARCHAR(15) DEFAULT "Belum",     
+  nama_item VARCHAR(100) NOT NULL,          
+  PRIMARY KEY (id_todo),
+  FOREIGN KEY (id_account) REFERENCES Account(id_account));
+
+
+-- title VARCHAR(50) NOT NULL,               -- Di list dengan judul apa (Senin, Selasa)
+-- progress VARCHAR(15) DEFAULT "Belum",     -- Sudah atau Belum
+-- nama_item VARCHAR(100) NOT NULL,          -- Nama aktivitas dalam list
+
