@@ -1,9 +1,9 @@
 <?php 
-    // session_start();
-    // if(!(isset($_SESSION['role']))){
-    //     header('location:inputLogin.php');
-    // }
-
+    session_start();
+    if(!(isset($_SESSION['username']))){
+        header('location:inputLogin.php');
+    }
+    $username = $_SESSION['username'];
 ?>
 
 <!DOCTYPE html>
@@ -179,7 +179,7 @@
                         <img src="https://i.imgur.com/hczKIze.jpg" alt="Profile Image">
 
                         <div class="log-out-info align-self-center text-dark">
-                            <h6>Paul Melone</h6>
+                            <h6> <?php echo $username; ?> </h6>
                             <p>Python Dev</p>
                         </div>
                     </a>

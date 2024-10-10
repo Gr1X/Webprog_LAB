@@ -9,12 +9,12 @@ CREATE TABLE Account(
 
 CREATE TABLE itemlist(
   id_todo INT auto_increment,
-  id_account INT NOT NULL,
+  username VARCHAR(50) NOT NULL,
   title VARCHAR(50) NOT NULL,               
   progress VARCHAR(15) DEFAULT "Belum",     
   nama_item VARCHAR(100) NOT NULL,          
   PRIMARY KEY (id_todo),
-  FOREIGN KEY (id_account) REFERENCES Account(id_account));
+  FOREIGN KEY (username) REFERENCES Account(username));
 
 
 -- title VARCHAR(50) NOT NULL,               -- Di list dengan judul apa (Senin, Selasa)
