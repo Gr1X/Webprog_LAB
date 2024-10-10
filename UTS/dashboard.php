@@ -1,3 +1,11 @@
+<?php 
+    // session_start();
+    // if(!(isset($_SESSION['role']))){
+    //     header('location:inputLogin.php');
+    // }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +28,7 @@
     }
 
     .l-navbar {
-        background-color: #4723D9;
+        background-color: #05112E;
         width: 250px;
         height: 100vh;
         position: fixed;
@@ -29,6 +37,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        z-index: 1000;
     }
 
     .main-content {
@@ -108,12 +117,38 @@
         display: flex;
         flex-direction: column;
         height: 100%;
+        background-color: #FFFFFF;
+    }
+
+    .progress-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        background-color: #212B44;
+    }
+
+    .top-bar {
+            background-color: #FFFFFF;
+            height: 50px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .top_content{
+        z-index: 1000;
     }
 
 
 </style>
 
 <body>
+    <div class="top-bar"></div>
+
+    </div>
     <div class="l-navbar" id="nav-bar">
         <nav class="nav flex-column"> 
             <h3 class="text-center text-white mb-5 mt-3">Fontaine</h3>
@@ -158,13 +193,13 @@
         <div class="container-fluid p-4 pb-2">
             <div class="d-flex justify-content-between align-items-center mb-4">
 
-                <div class="">
+                <div class="top_content mt-3">
                     <h2>To Do List Dashboard</h2>
                     <p>Hello, Good Morning! Welcome<b> Jomok.</b></p>    
                 </div>
                 
                 
-                <div class="">
+                <div class="top_content ">
                     <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -174,7 +209,7 @@
         </div>
 
         <div class="dropdown-center px-3 mb-3">
-            <button class="btn btn-primary dropdown-toggle px-4 rounded-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-primary dropdown-toggle px-4 rounded-3 fw-semibold" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Filter by
             </button>
             <ul class="dropdown-menu shadow">
@@ -196,18 +231,22 @@
         <div class="container text-center">
             <div class="row">
                 <div class="col-4">
-                    <div class="task-card card shadow" style="">
+                    <div class="progress-card card shadow" style="">
                         <div class="card-body">
-                            <h5 class="text-start card-title">Progress</h5>
-                            <div class="">
+                            <h5 class="text-start card-title text-white">Progress</h5>
+                            
+                            <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 55%"></div>
+                            </div>
+
+                            <div class="mt-4">
                                 <table class="table text-start">
-                                
                                 <tbody>
                                     <tr>
-                                        <td class="text-secondary fw-bold">Task</td>
+                                        <td class="text-light fw-bold">Task</td>
                                         <td>
                                             <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                <p class="fw-bold p-0 m-0 text-white">10</p>
                                             </div>
                                         </td>
                                     </tr>
@@ -216,7 +255,7 @@
                                         <td class="text-warning fw-bold">On progress</td>
                                         <td>
                                             <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                <p class="fw-bold p-0 m-0 text-warning">20</p>
                                             </div>
                                         </td>
                                     </tr>
@@ -225,7 +264,7 @@
                                         <td class="text-success fw-bold">Done</td>
                                         <td>
                                             <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                <p class="fw-bold p-0 m-0 text-success">30</p>
                                             </div>
                                         </td>
                                     </tr>
@@ -233,8 +272,7 @@
                                 </table>
                             </div>
 
-                            <p class="card-text pt-3">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">See List</a>
+                            <a href="#" class="btn btn-primary mt-5 d-block">See List</a>
                         </div>
                     </div>
                 </div>
