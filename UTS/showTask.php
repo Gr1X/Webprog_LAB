@@ -200,7 +200,7 @@
                 </div>
                 
                 
-                <div class="top_content ">
+                <div class="top_content">
                     <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -209,27 +209,66 @@
             </div>
         </div>
 
-        <div class="dropdown-center px-3 mb-3">
-            <button class="btn btn-primary dropdown-toggle px-4 rounded-3 fw-semibold" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Filter by
-            </button>
-            <ul class="dropdown-menu shadow">
-                <li class="d-flex justify-content-between">
-                    <label class="dropdown-item text-success" href="#">Completed</label>
-                    <div class="form-check form-check-reverse d-flex align-self-center">
-                        <input class="form-check-input" type="checkbox" value="completed" id="reverseCheck1">
+        <div class="d-flex justify-content-between">
+            <div class="dropdown-center px-3 mb-3">
+                <button class="btn btn-primary dropdown-toggle px-4 rounded-3 fw-semibold" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Filter by
+                </button>
+    
+                <ul class="dropdown-menu shadow">
+                    <li class="d-flex justify-content-between">
+                        <label class="dropdown-item text-success" href="#">Completed</label>
+                        <div class="form-check form-check-reverse d-flex align-self-center">
+                            <input class="form-check-input" type="checkbox" value="completed" id="reverseCheck1">
+                        </div>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                        <a class="dropdown-item text-danger" href="#">Uncompleted</a>
+                        <div class="form-check form-check-reverse d-flex align-self-center">
+                            <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+    
+            <div class="">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class='bx bx-plus' ></i>
+                </button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            
+                            <!-- input judul -->
+                            <form action="register_process.php" method="post">
+                                <div class="modal-body">
+                                    <div class="input-group mb-3">
+                                        <div class="d-flex justify-content-center p-2">
+                                            <i class="fa-solid fa-envelope"></i>
+                                        </div>
+                                        <input type="text" class="form-control border border-0 border-bottom border-2 bg-light" required name="judul" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                                
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+
+                        </div>
                     </div>
-                </li>
-                <li class="d-flex justify-content-between">
-                    <a class="dropdown-item text-danger" href="#">Uncompleted</a>
-                    <div class="form-check form-check-reverse d-flex align-self-center">
-                        <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                    </div>
-                </li>
-            </ul>
+                </div>
+            </div>
+
+
         </div>
 
-        <div class="container text-center overflow-auto" style="max-height: 475px;">
+        <div class="container text-center overflow-auto" style="max-height: 400px;">
             <div class="row mb-3">
                 <div class="col">
                     <div class="task-card card shadow" style="">
