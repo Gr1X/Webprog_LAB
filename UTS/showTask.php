@@ -1,8 +1,5 @@
 <?php 
-    // session_start();
-    // if(!(isset($_SESSION['role']))){
-    //     header('location:inputLogin.php');
-    // }
+  
 
 ?>
 
@@ -11,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard ToDoList</title>
+    <title>View ToDoList</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -148,11 +145,10 @@
 <body>
     <div class="top-bar"></div>
 
-    </div>
     <div class="l-navbar" id="nav-bar">
         <nav class="nav flex-column"> 
             <h3 class="text-center text-white mb-5 mt-3">Fontaine</h3>
-            <a href="#" class="nav_link text-light d-flex align-items-center mb-3">
+            <a href="dashboard.php" class="nav_link text-light d-flex align-items-center mb-3">
                 <i class='bx bx-grid-alt nav_icon'></i>
                 <span class="nav_name">Dashboard</span>
             </a>
@@ -199,8 +195,8 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
 
                 <div class="top_content mt-3">
-                    <h2>To Do List Dashboard</h2>
-                    <p>Hello, Good Morning! Welcome<b> Jomok.</b></p>    
+                    <h2>View task</h2>
+                    <p>See your task today</p>    
                 </div>
                 
                 
@@ -233,99 +229,44 @@
             </ul>
         </div>
 
-        <div class="container text-center">
-            <div class="row">
-                <div class="col-4">
-                    <div class="progress-card card shadow" style="">
-                        <div class="card-body">
-                            <h5 class="text-start card-title text-white">Progress</h5>
-                            
-                            <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 55%"></div>
-                            </div>
-
-                            <div class="mt-4">
-                                <table class="table text-start">
-                                <tbody>
-                                    <tr>
-                                        <td class="text-light fw-bold">Task</td>
-                                        <td>
-                                            <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <p class="fw-bold p-0 m-0 text-white">10</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="text-warning fw-bold">On progress</td>
-                                        <td>
-                                            <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <p class="fw-bold p-0 m-0 text-warning">20</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="text-success fw-bold">Done</td>
-                                        <td>
-                                            <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <p class="fw-bold p-0 m-0 text-success">30</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                </table>
-                            </div>
-
-                            <a href="#" class="btn btn-primary mt-5 d-block">See List</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-8">
+        <div class="container text-center overflow-auto" style="max-height: 475px;">
+            <div class="row mb-3">
+                <div class="col">
                     <div class="task-card card shadow" style="">
                         <div class="card-body">
-                            <h5 class="text-start card-title">Today</h5>
+                            <h5 class="text-start card-title">Monday</h5>
                             <div class="">
                                 <table class="table text-start">
                                 
-                                <tbody>
-                                    <tr>
-                                        <td>Marks</td>
-                                        <td>
-                                            <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <tbody>
+                                        <tr>
+                                            <td>Marks</td>
+                                            <td>
+                                                <div class="form-check form-check-reverse d-flex justify-content-end">
+                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                </div>
+                                            </td>
+                                        </tr>
 
-                                    <tr>
-                                        <td class="">Marks</td>
-                                        <td>
-                                            <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td class="">Marks</td>
+                                            <td>
+                                                <div class="form-check form-check-reverse d-flex justify-content-end">
+                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                </div>
+                                            </td>
+                                        </tr>
 
-                                    <tr>
-                                        <td class="">Marks</td>
-                                        <td>
-                                            <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td class="">Marks</td>
+                                            <td>
+                                                <div class="form-check form-check-reverse d-flex justify-content-end">
+                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
 
-                                    <tr>
-                                        <td class="">Marks</td>
-                                        <td>
-                                            <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
                                 </table>
                             </div>
                         </div>
@@ -334,8 +275,67 @@
             </div>
             
             <div class="row">
-                <div class="col-8"></div>
+                <div class="col">
+                    <div class="task-card card shadow" style="">
+                        <div class="card-body">
+                            <h5 class="text-start card-title">Monday</h5>
+                            <div class="">
+                                <table class="table text-start">
+                                
+                                    <tbody>
+                                        <tr>
+                                            <td>Marks</td>
+                                            <td>
+                                                <div class="form-check form-check-reverse d-flex justify-content-end">
+                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="">Marks</td>
+                                            <td>
+                                                <div class="form-check form-check-reverse d-flex justify-content-end">
+                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="">Marks</td>
+                                            <td>
+                                                <div class="form-check form-check-reverse d-flex justify-content-end">
+                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="">Marks</td>
+                                            <td>
+                                                <div class="form-check form-check-reverse d-flex justify-content-end">
+                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="">Marks</td>
+                                            <td>
+                                                <div class="form-check form-check-reverse d-flex justify-content-end">
+                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 
