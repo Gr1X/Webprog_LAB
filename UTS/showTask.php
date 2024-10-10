@@ -245,18 +245,18 @@
                             </div>
                             
                             <!-- input judul -->
-                            <form action="register_process.php" method="post">
+                            <form action="buatList.php" method="post">
                                 <div class="modal-body">
                                     <div class="input-group mb-3">
                                         <div class="d-flex justify-content-center p-2">
                                             <i class="fa-solid fa-envelope"></i>
                                         </div>
-                                        <input type="text" class="form-control border border-0 border-bottom border-2 bg-light" required name="judul" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control border border-0 border-bottom border-2 bg-light" required name="judul_tabel" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
                                     </div>
                                 </div>
                                 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
                             </form>
 
