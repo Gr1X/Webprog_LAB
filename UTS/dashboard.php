@@ -174,23 +174,22 @@
             </a>
             
             <div class="log-out-container">
-            <div class="d-flex align-items-center justify-content-between p-2 bg-light rounded" style="width: 100%;">
-                <!-- Left Side: Profile Image and Name -->
-                <a href="#" class="d-flex align-items-center" style="text-decoration: none;">
-                    <img src="https://i.imgur.com/hczKIze.jpg" alt="Profile Image" style="border-radius: 50%; width: 45px; height: 45px;">
-                    <div class="log-out-info ms-3">
-                        <h6 class="mb-0" style="color: #000; font-weight: 600;">Kelpin Jo</h6>
-                        <p class="mb-0 text-muted" style="font-size: 12px;">Python Dev</p>
+                <div class="log-out-card">
+                    <a href="pageUser.php" class="d-flex text-decoration-none">
+                        <img src="https://i.imgur.com/hczKIze.jpg" alt="Profile Image">
+
+                        <div class="log-out-info align-self-center text-dark">
+                            <h6>Paul Melone</h6>
+                            <p>Python Dev</p>
+                        </div>
+                    </a>
+                    <div>
+                        <a href="#" class="d-flex align-items-center text-decoration-none">
+                            <i class='bx bxs-log-out fs-4 text-dark text-center'></i>
+                        </a>
                     </div>
-                </a>
-
-                <!-- Right Side: Logout Icon -->
-                <a href="target-page.html" class="btn btn-light p-2 d-flex align-items-center justify-content-center" style="border-radius: 10px; width: 45px; height: 45px;">
-                    <i class='bx bxs-log-out fs-4 text-dark'></i>
-                </a>
+                </div>
             </div>
-        </div>
-
         </nav>
     </div>
 
