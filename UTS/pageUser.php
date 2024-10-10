@@ -48,7 +48,10 @@
     <!-- Account Header -->
     <div class="row account-header">
         <div class="my-4">
-            <a href="#" class="text-decoration-none"><i class='bx bx-left-arrow-alt'></i>Back to dashboard</a>
+            <a href="dashboard.php" class="d-flex text-decoration-none align-item-center text-dark">
+                <i class='bx bx-left-arrow-alt align-self-center fs-3 fw-semibold'></i>
+                <p class="align-self-center m-0 fs-5 fw-semibold"> Back to dashboard</p>            
+            </a>
         </div>
     </div>
 
