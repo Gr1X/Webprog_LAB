@@ -163,18 +163,6 @@
                 <i class='bx bx-user nav_icon'></i>
                 <span class="nav_name">Show task</span>
             </a>
-            <a href="#" class="nav_link text-light d-flex align-items-center mb-3">
-                <i class="fa-solid fa-eye nav_icon"></i>
-                <span class="nav_name">View</span>
-            </a>
-            <a href="#" class="nav_link text-light d-flex align-items-center mb-3">
-                <i class="fa-solid fa-pen nav_icon"></i>
-                <span class="nav_name">Edit</span>
-            </a>
-            <a href="#" class="nav_link text-light d-flex align-items-center mb-3">
-                <i class="fa-solid fa-trash nav_icon"></i>
-                <span class="nav_name">Delete</span>
-            </a>
             
             <div class="log-out-container">
                 <div class="log-out-card">

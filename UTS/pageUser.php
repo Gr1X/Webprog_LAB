@@ -16,7 +16,7 @@
         }
 
         .top-bar {
-            background-color: white;
+            background-color: #212B44;
             height: 50px;
             width: 100%;
             position: fixed;
@@ -72,18 +72,40 @@
                         <p class="fw-semibold">*************</p>
                         <hr>
                         <div class="d-flex justify-content-between">
-                            <a href="#" class="text-decoration-none text-dark fw-medium">Manage Account</a>
+                            <button type="button" class="text-decoration-none text-dark fw-medium bg-transparent border border-0" data-bs-toggle="modal" data-bs-target="#manageModal">Manage Account</button>
+
                             <div class="d-flex align-items-center fs-4">
-                                <a href="#"><i class='bx bx-chevron-right'></i></a>
+                                <button type="button" class="btn btn-primary bg-transparent border border-0" data-bs-toggle="modal" data-bs-target="#manageModal">
+                                    <i class='bx bx-chevron-right text-dark'></i>
+                                </button>
+
+                                <div class="modal fade" id="manageModal" tabindex="-1" aria-labelledby="manageUserLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="manageUserLabel">Modal title</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ...
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
             
                 <!-- Manage Your Account Section -->
                 <div class="row manage-account">
-                <p class="fw-medium text-secondary mb-2">Manage Your Account</p>
+                    <p class="fw-medium text-secondary mb-2">Manage Your Account</p>
                     <div class="col-md-12">
                         <div class="card card-custom border border-0 shadow-sm">
                             <h3 class="fw-semibold">Change my User Name</h3>

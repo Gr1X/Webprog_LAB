@@ -175,9 +175,6 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /* Menghilangkan panah pada button dropdown */
-    .tombol_drop[data-bs-toggle="dropdown"]::after {
-        display: none; /* Menghilangkan simbol panah bawaan */
-    }
 
     .modal-header{
         background-color: #05112E;
@@ -185,7 +182,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /* Hide the default dropdown caret (arrow) */
-    .dropdown-toggle::after {
+    .tombol_drop::after {
         display: none;
     }
 
@@ -204,18 +201,6 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
             <a href="showTask.php" class="nav_link text-light d-flex align-items-center mb-3">
                 <i class='bx bx-user nav_icon'></i>
                 <span class="nav_name">Show task</span>
-            </a>
-            <a href="#" class="nav_link text-light d-flex align-items-center mb-3">
-                <i class="fa-solid fa-eye nav_icon"></i>
-                <span class="nav_name">View</span>
-            </a>
-            <a href="#" class="nav_link text-light d-flex align-items-center mb-3">
-                <i class="fa-solid fa-pen nav_icon"></i>
-                <span class="nav_name">Edit</span>
-            </a>
-            <a href="#" class="nav_link text-light d-flex align-items-center mb-3">
-                <i class="fa-solid fa-trash nav_icon"></i>
-                <span class="nav_name">Delete</span>
             </a>
             
             <div class="log-out-container">
@@ -319,8 +304,8 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
 
         </div>
 
-        <div class="container text-center py-1" style="max-height: 480px;">
-            <div class="row g-4"> <!-- Add gutters for spacing between rows -->
+        <div class="container text-center overflow-auto py-1" style="max-height: 480px;">
+            <div class="row"> <!-- Add gutters for spacing between rows -->
                 <?php 
                 $count = 0;
                 foreach ($tabellist as $tabel): 
@@ -328,7 +313,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                         echo '<div class="row mb-3">'; // Start new row
                     }
                 ?>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-2">
                         <div class="card task-card border-0 shadow-sm mb-4" style="background-color: #f8f9fa; border-radius: 8px;"> <!-- Soft background and rounded corners -->
                             <div class="card-body">
                                 <div class="d-flex justify-content-between mb-3">
@@ -338,8 +323,8 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
 
                                         <!-- Edit/Delete Dropdown -->
                                         <div class="dropdown">
-                                            <button class="btn btn-sm px-2 dropdown-toggle" type="button" id="dropdownTableButton<?= $tabel['id_tabel'] ?>" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
-                                                <b>. . .</b>
+                                            <button class="btn btn-sm px-2 dropdown-toggle tombol_drop" type="button" id="dropdownTableButton<?= $tabel['id_tabel'] ?>" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                                                
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownTableButton<?= $tabel['id_tabel'] ?>">
                                                 <!-- Edit List Option -->
@@ -358,10 +343,24 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                         </div>
                                     </div>
 
-                                    <!-- Add Item Button -->
-                                    <button type="button" class="btn btn-primary align-self-center px-3" data-bs-toggle="modal" data-bs-target="#addItemModal<?= $tabel['id_tabel'] ?>">
-                                        Add Item
-                                    </button>
+                                    <!-- Example split danger button -->
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary align-self-center px-3" data-bs-toggle="modal" data-bs-target="#addItemModal<?= $tabel['id_tabel'] ?>">Add Task</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteTableModal<?= $tabel['id_tabel'] ?>">
+                                                        <i class="fa-solid fa-trash"></i> Delete
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editTableModal<?= $tabel['id_tabel'] ?>">
+                                                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                                                </button></li>
+                                        </ul>
+                                    </div>
                                 </div>
 
                                 <!-- Display Table Items -->
@@ -374,17 +373,17 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                     $tasks = $stmt7->fetchAll(PDO::FETCH_ASSOC);
 
                                     foreach ($tasks as $task): ?>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center p-2 bg-light">
                                             <div class="d-flex">
                                                 <!-- Task Name and Progress -->
-                                                <input class="form-check-input me-2 align-self-center" type="checkbox" <?= $task['progress'] == 'Selesai' ? 'checked' : '' ?> disabled>
+                                                <input class="form-check-input me-2 align-self-center" type="checkbox">
                                                 <span class="align-self-center"><?= htmlspecialchars($task['nama_item']) ?></span>
                                             </div>
 
                                             <!-- Edit/Delete Dropdown for Task -->
                                             <div class="dropdown">
-                                                <button class="btn btn-sm px-2 dropdown-toggle" type="button" id="dropdownTaskButton<?= $task['nama_item'] ?>" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
-                                                    . . .
+                                                <button class="btn btn-sm px-2 dropdown-toggle tombol_drop" type="button" id="dropdownTaskButton<?= $task['nama_item'] ?>" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                                                    <i class='bx bx-dots-horizontal-rounded fs-4'></i>
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownTaskButton<?= $task['nama_item'] ?>">
                                                     <!-- Edit Task Option -->
