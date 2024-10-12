@@ -357,8 +357,8 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                             <div class="d-flex">
                                                 <!-- Task Name and Progress -->
                                                 <input class="form-check-input me-2 align-self-center" type="checkbox">
-                                                <span class="align-self-center"><?= $task['nama_item'] ?></span>
-                                            </div>  
+                                                <span class="align-self-center"><?= htmlspecialchars($task['nama_item']) ?></span>
+                                            </div>
 
                                             <!-- Edit/Delete Dropdown for Task -->
                                             <div>
@@ -381,6 +381,51 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                                 </ul>
                                             </div>
                                         </li>
+
+                                        <!-- Modal for Editing Task -->
+                                        <div class="modal fade" id="editTaskModal<?= $task['id_todo'] ?>" tabindex="-1" aria-labelledby="editTaskModalLabel<?= $task['id_todo'] ?>" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editTaskModalLabel<?= $task['id_todo'] ?>">Edit Task</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="editItem.php" method="POST">
+                                                        <div class="modal-body">
+                                                            <input type="hidden" name="id_todo" value="<?= $task['id_todo'] ?>">
+                                                            <input type="text" class="form-control" required name="nama_item" placeholder="Task Name" value="<?= htmlspecialchars($task['nama_item']) ?>">
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                                            <button type="submit" class="btn btn-success">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal for Deleting Task -->
+                                        <div class="modal fade" id="deleteTaskModal<?= $task['id_todo'] ?>" tabindex="-1" aria-labelledby="deleteTaskModalLabel<?= $task['id_todo'] ?>" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteTaskModalLabel<?= $task['id_todo'] ?>">Delete Task</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="deleteItem.php" method="POST">
+                                                        <div class="modal-body">
+                                                            <input type="hidden" name="id_todo" value="<?= $task['id_todo'] ?>">
+                                                            <input type="hidden" name="nama_item" value="<?= htmlspecialchars($task['nama_item']) ?>">
+                                                            <p class="m-0">Are you sure you want to delete this task?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                                            <button type="submit" class="btn btn-success">Delete</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
@@ -454,16 +499,15 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                     </div>
 
                     <!-- Modal for Editing Task -->
-                    <div class="modal fade" id="editTaskModal<?= $task['id_todo'] ?>" tabindex="-1" aria-labelledby="editTaskModalLabel<?= $task['id_todo'] ?>" aria-hidden="true">
+                    <div class="modal fade" id="editTaskModal<?= $tasks['id_todo'] ?>" tabindex="-1" aria-labelledby="editTaskModalLabel<?= $tasks['id_todo'] ?>" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="editTaskModalLabel<?= $task['id_todo'] ?>">Edit Task</h5>
+                                    <h5 class="modal-title" id="editTaskModalLabel<?= $tasks['id_todo'] ?>">Edit Task</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <form action="editItem.php" method="POST">
                                     <div class="modal-body">
-                                        <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
                                         <input type="text" class="form-control" required name="nama_item" placeholder="Task Name" value="<?= htmlspecialchars($task['nama_item']) ?>">
                                     </div>
                                     <div class="modal-footer">
@@ -476,11 +520,11 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                     </div>
 
                     <!-- Modal for Deleting Task -->
-                    <div class="modal fade" id="deleteTaskModal<?= $task['nama_item'] ?>" tabindex="-1" aria-labelledby="deleteTaskModalLabel<?= $task['nama_item'] ?>" aria-hidden="true">
+                    <div class="modal fade" id="deleteTaskModal<?= $tasks['id_todo'] ?>" tabindex="-1" aria-labelledby="deleteTaskModalLabel<?= $tasks['id_todo'] ?>" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteTaskModalLabel<?= $task['nama_item'] ?>">Delete Task</h5>
+                                    <h5 class="modal-title" id="deleteTaskModalLabel<?= $tasks['id_todo'] ?>">Delete Task</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <form action="deleteTask.php" method="POST">
