@@ -1,8 +1,6 @@
 <?php
-session_start();
 require_once('db.php');
 
-$username = $_SESSION['username'];
 $id_tabel = $_POST['id_tabel'];
 
 // delete semua item pada list dulu
@@ -16,9 +14,9 @@ $result4->execute([$id_tabel]);
 // delete list
 $query11 = "DELETE
             FROM tabellist
-            WHERE username = ?";
+            WHERE id_tabel = ?";
 
 $result5 = $db->prepare($query11);
-$result5->execute([$username]);
+$result5->execute([$id_tabel]);
 
 header('location: showTask.php');
