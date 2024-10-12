@@ -36,6 +36,12 @@
         .account-details,.manage-account {
             margin-bottom: 30px;
         }
+
+        .modal-header{
+            background-color: #212B44;
+            color: #FFFFFF;
+        }
+
     </style>
 </head>
 
@@ -78,51 +84,77 @@
                                 <button type="button" class="btn btn-primary bg-transparent border border-0" data-bs-toggle="modal" data-bs-target="#manageModal">
                                     <i class='bx bx-chevron-right text-dark'></i>
                                 </button>
-
-                                <div class="modal fade" id="manageModal" tabindex="-1" aria-labelledby="manageUserLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="manageUserLabel">Modal title</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            ...
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-
+                        
                     </div>
                 </div>
             </div>
             
-                <!-- Manage Your Account Section -->
-                <div class="row manage-account">
-                    <p class="fw-medium text-secondary mb-2">Manage Your Account</p>
-                    <div class="col-md-12">
-                        <div class="card card-custom border border-0 shadow-sm">
-                            <h3 class="fw-semibold">Change my User Name</h3>
-                            <ul class="list-unstyled">
-                                <li><a href="#" class="text-decoration-none text-secondary fw-medium">Change my first name</a></li>
-                                <li><a href="#" class="text-decoration-none text-secondary fw-medium">Change my last name</a></li>
-                            </ul>
-                            <ul class="list-unstyled mt-3">
-                                <li><a href="#" class="text-decoration-none text-dark fw-semibold fs-6">Change my email</a></li>
-                                <li><a href="#" class="text-decoration-none text-dark fw-semibold fs-6">Reset Password</a></li>
-                            </ul>
-                        </div>
+            <!-- Manage Your Account Section -->
+            <div class="row manage-account">
+                <p class="fw-medium text-secondary mb-2">Manage Your Account</p>
+                <div class="col-md-12">
+                    <div class="card card-custom border border-0 shadow-sm">
+                        <h3 class="fw-semibold">Change my Username</h3>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-decoration-none text-secondary fw-medium">Change my first name</a></li>
+                            <li><a href="#" class="text-decoration-none text-secondary fw-medium">Change my last name</a></li>
+                        </ul>
+                        <ul class="list-unstyled mt-3">
+                            <li><a href="#" class="text-decoration-none text-dark fw-semibold fs-6">Change my email</a></li>
+                            <li><a href="#" class="text-decoration-none text-dark fw-semibold fs-6">Reset Password</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal Changeusername -->
+<div class="modal fade" id="manageModal" tabindex="-1" aria-labelledby="manageUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5 fw-bold" id="manageUserLabel">Change my Username</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <ul class="list-unstyled">
+                <li>
+                    <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark" data-bs-toggle="modal" data-bs-target="#firstNameModal">
+                        Change my firstname<i class='bx bx-chevron-right text-dark'></i>
+                    </button>
+                </li>
+                <li><a href="#" class="text-decoration-none text-secondary fw-medium">Change my last name</a></li>                            
+            </ul>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Change Nama Depan -->
+<div class="modal fade" id="firstNameModal" tabindex="-1" aria-labelledby="firstNameLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5 fw-bold" id="firstNameLabel">Change firstname</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="" method="post">
+                <input type="text" aria-label="First name" class="form-control">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-target="#manageModal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

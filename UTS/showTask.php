@@ -440,7 +440,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                 <form action="editTable.php" method="POST">
                                     <div class="modal-body">
                                         <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
-                                        <input type="text" class="form-control mb-3" required name="judul_tabel" placeholder="New List Title" value="<?= htmlspecialchars($tabel['judul_tabel']) ?>">
+                                        <input type="text" class="form-control" required name="judul_tabel" placeholder="New List Title" value="<?= htmlspecialchars($tabel['judul_tabel']) ?>">
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -462,7 +462,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                 <form action="deleteTable.php" method="POST">
                                     <div class="modal-body">
                                         <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
-                                        <p>Are you sure you want to delete this list and all its items?</p>
+                                        <p class="m-0">Are you sure you want to delete this list and all its items?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -484,7 +484,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                 <form action="editTask.php" method="POST">
                                     <div class="modal-body">
                                         <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
-                                        <input type="text" class="form-control mb-3" required name="nama_item" placeholder="Task Name" value="<?= htmlspecialchars($task['nama_item']) ?>">
+                                        <input type="text" class="form-control" required name="nama_item" placeholder="Task Name" value="<?= htmlspecialchars($task['nama_item']) ?>">
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -507,7 +507,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="modal-body">
                                         <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
                                         <input type="hidden" name="nama_item" value="<?= htmlspecialchars($task['nama_item']) ?>">
-                                        <p>Are you sure you want to delete this task?</p>
+                                        <p class="m-0">Are you sure you want to delete this task?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
