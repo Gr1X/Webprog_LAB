@@ -357,7 +357,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                             <div class="d-flex">
                                                 <!-- Task Name and Progress -->
                                                 <input class="form-check-input me-2 align-self-center" type="checkbox">
-                                                <span class="align-self-center"><?= htmlspecialchars($task['nama_item']) ?></span>
+                                                <span class="align-self-center"><?= $task['nama_item'] ?></span>
                                             </div>
 
                                             <!-- Edit/Delete Dropdown for Task -->
