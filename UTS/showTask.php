@@ -1,6 +1,15 @@
 <?php 
-  
+session_start();
+require_once ('db.php');
 
+$username = $_SESSION['username'];
+
+$query5 = "SELECT id_tabel, judul_tabel
+           FROM tabellist
+           WHERE username = ?";
+$stmt5 = $db->prepare($query5);
+$stmt5->execute([$username]);
+$tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -174,6 +183,12 @@
         background-color: #05112E;
         color:#FFFFFF;
     }
+
+    /* Hide the default dropdown caret (arrow) */
+    .dropdown-toggle::after {
+        display: none;
+    }
+
 </style>
 
 <body>
@@ -304,174 +319,220 @@
 
         </div>
 
-        <div class="container text-center overflow-auto py-1" style="max-height: 480px;">
-            <div class="row mb-3">
-                <div class="col">
-                    <div class="task-card card border border-0" style="">
-                        <div class="card-body shadow-sm">
-                            <div class="d-flex justify-content-between mb-4">
-                                <h5 class="text-start card-title align-self-center p-0 m-0">Monday</h5>
+        <div class="container text-center py-1" style="max-height: 480px;">
+            <div class="row g-4"> <!-- Add gutters for spacing between rows -->
+                <?php 
+                $count = 0;
+                foreach ($tabellist as $tabel): 
+                    if ($count % 2 == 0) {
+                        echo '<div class="row mb-3">'; // Start new row
+                    }
+                ?>
+                    <div class="col-md-6">
+                        <div class="card task-card border-0 shadow-sm mb-4" style="background-color: #f8f9fa; border-radius: 8px;"> <!-- Soft background and rounded corners -->
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <!-- Table Title and Dropdown with Edit/Delete -->
+                                    <div class="d-flex">
+                                        <h5 class="text-start card-title align-self-center me-2"><?= htmlspecialchars($tabel['judul_tabel']) ?></h5>
 
-                                <!-- Trigger Button for Modal -->
-                                <button type="button" class="btn btn-primary align-self-center px-2" data-bs-toggle="modal" data-bs-target="#addActivityModal">
-                                    Add activity
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade border border-0" id="addActivityModal" tabindex="-1" aria-labelledby="activityModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                        <div class="modal-content">
-                                            <div class="modal-header shadow-sm">
-                                                <h1 class="modal-title fs-5" id="activityModalLabel">Activity</h1>
-                                            </div>
-
-                                            <!-- Inputs form -->
-                                            <form action="#" method="post">
-                                                <div class="modal-body">
-                                                    <div class="input-group d-block">
-                                                        <div class="d-flex justify-content-center p-2"></div>
-                                                        <div class="text-start">
-                                                            <label for="activityDropdown" class="form-label fw-semibold">Add Activity</label>
-                                                            <input type="text" class="form-control border border-0 border-bottom border-2 bg-light" required name="judul_tabel" id="activityDropdown" placeholder="Add Activity">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger fw-semibold shadow-sm" data-bs-dismiss="modal" aria-label="Close">
-                                                        <i class='bx bx-x fw-bold fs-4'></i>
+                                        <!-- Edit/Delete Dropdown -->
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm px-2 dropdown-toggle" type="button" id="dropdownTableButton<?= $tabel['id_tabel'] ?>" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                                                <b>. . .</b>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownTableButton<?= $tabel['id_tabel'] ?>">
+                                                <!-- Edit List Option -->
+                                                <li>
+                                                    <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editTableModal<?= $tabel['id_tabel'] ?>">
+                                                        <i class="fa-solid fa-pen-to-square"></i> Edit
                                                     </button>
-                                                    <button type="submit" class="btn btn-success fw-semibold shadow-sm">
-                                                        <i class='bx bx-check fw-bold fs-4'></i>
+                                                </li>
+                                                <!-- Delete List Option -->
+                                                <li>
+                                                    <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteTableModal<?= $tabel['id_tabel'] ?>">
+                                                        <i class="fa-solid fa-trash"></i> Delete
                                                     </button>
-                                                </div>
-                                            </form>
-
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
+
+                                    <!-- Add Item Button -->
+                                    <button type="button" class="btn btn-primary align-self-center px-3" data-bs-toggle="modal" data-bs-target="#addItemModal<?= $tabel['id_tabel'] ?>">
+                                        Add Item
+                                    </button>
                                 </div>
-                            </div>
 
+                                <!-- Display Table Items -->
+                                <ul class="list-group list-group-flush text-start">
+                                    <?php
+                                    // Fetch tasks for the current list
+                                    $query7 = "SELECT nama_item, progress FROM itemlist WHERE id_tabel = ?";
+                                    $stmt7 = $db->prepare($query7);
+                                    $stmt7->execute([$tabel['id_tabel']]);
+                                    $tasks = $stmt7->fetchAll(PDO::FETCH_ASSOC);
 
-                            <!-- Isi tabel -->
-                            <div class="">
-                                <table class="table text-start">
-                                    <tbody>
-                                        <tr>
-                                            <td class="p-0">
-                                                <div class="d-flex gap-2">
-                                                    <div class="form-check form-check-reverse d-flex justify-content-end align-self-center">
-                                                        <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                                                    </div>
-                                                    <p class="m-0 p-0 align-self-center">Lorem Ipsum</p>
-                                                </div>
-                                            </td>
+                                    foreach ($tasks as $task): ?>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                                            <div class="d-flex">
+                                                <!-- Task Name and Progress -->
+                                                <input class="form-check-input me-2 align-self-center" type="checkbox" <?= $task['progress'] == 'Selesai' ? 'checked' : '' ?> disabled>
+                                                <span class="align-self-center"><?= htmlspecialchars($task['nama_item']) ?></span>
+                                            </div>
 
-                                            <td class="d-flex justify-content-end p-0">
-                                                <div class="align-self-center">
-                                                    <div class="dropdown-center">
-                                                        <form action="" method="post">
-                                                            <button class="btn btn-sm dropdown-toggle tombol_drop" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class='bx bx-dots-horizontal-rounded align-self-center fs-4'></i>
-                                                            </button>
-        
-                                                            <ul class="dropdown-menu p-1 px-1">
-                                                                <div class="d-flex justify-content-between gap-2">
-                                                                    <li>
-                                                                        <div class="dropdown-item m-0 p-0" href="#">
-                                                                            <button type="button" class="btn btn-primary align-self-center px-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                                                <i class="fa-solid fa-pen-to-square mx-2"></i>
-                                                                            </button>
-    
-                                                                            <div class="modal fade border border-0" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                                                                    <div class="modal-content">
-                                                                                        <div class="modal-header">
-                                                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Input Title Task</h1>
-                                                                                        </div>
-    
-                                                                                        <!-- Input Edit Task-->
-                                                                                        <form action="#" method="post">
-                                                                                            <div class="modal-body">
-                                                                                                <div class="input-group mb-3">
-                                                                                                    <div class="d-flex justify-content-center p-2"></div>
-                                                                                                    <div class="mb-3">
-                                                                                                        <label for="exampleDropdownFormEmail1" class="form-label">Task title</label>
-                                                                                                        <input type="text" class="form-control border border-0 border-bottom border-2 bg-light" required name="judul_tabel" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-    
-                                                                                            <div class="modal-footer">
-                                                                                                <button type="button" class="btn btn-danger fw-semibold shadow-sm" data-bs-dismiss="modal" aria-label="Close">
-                                                                                                    <i class='bx bx-x fw-bold fs-4'></i>
-                                                                                                </button>
-                                                                                                <button type="submit" class="btn btn-success fw-semibold shadow-sm">
-                                                                                                    <i class='bx bx-check fw-bold fs-4'></i>
-                                                                                                </button>
-                                                                                            </div>
-                                                                                        </form>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </li>
-
-
-                                                                    <li>
-                                                                        <div class="dropdown-item p-0" href="#">
-                                                                            <button type="button" class="btn btn-primary align-self-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                                                <i class="fa-solid fa-trash mx-1"></i>
-                                                                            </button>
-    
-                                                                            <div class="modal fade border border-0" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                                                                    <div class="modal-content">
-                                                                                        <div class="modal-header">
-                                                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Input Title Task</h1>
-                                                                                        </div>
-    
-                                                                                        <!-- Tombol Delete -->
-                                                                                        <form action="#" method="post">
-                                                                                            <div class="modal-body">
-                                                                                                <div class="input-group mb-3">
-                                                                                                    <div class="d-flex justify-content-center p-2"></div>
-                                                                                                    <div class="mb-3">
-                                                                                                        <label for="exampleDropdownFormEmail1" class="form-label">Task title</label>
-                                                                                                        <input type="text" class="form-control border border-0 border-bottom border-2 bg-light" required name="judul_tabel" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-    
-                                                                                            <div class="modal-footer">
-                                                                                                <button type="button" class="btn btn-danger fw-semibold shadow-sm" data-bs-dismiss="modal" aria-label="Close">
-                                                                                                    <i class='bx bx-x fw-bold fs-4'></i>
-                                                                                                </button>
-                                                                                                <button type="submit" class="btn btn-success fw-semibold shadow-sm">
-                                                                                                    <i class='bx bx-check fw-bold fs-4'></i>
-                                                                                                </button>
-                                                                                            </div>
-                                                                                        </form>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </li>
-
-                                                                </div>
-                                                            </ul>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            <!-- Edit/Delete Dropdown for Task -->
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm px-2 dropdown-toggle" type="button" id="dropdownTaskButton<?= $task['nama_item'] ?>" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                                                    . . .
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownTaskButton<?= $task['nama_item'] ?>">
+                                                    <!-- Edit Task Option -->
+                                                    <li>
+                                                        <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editTaskModal<?= $task['nama_item'] ?>">
+                                                            <i class="fa-solid fa-pen-to-square"></i> Edit
+                                                        </button>
+                                                    </li>
+                                                    <!-- Delete Task Option -->
+                                                    <li>
+                                                        <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteTaskModal<?= $task['nama_item'] ?>">
+                                                            <i class="fa-solid fa-trash"></i> Delete
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Modal for Adding Item -->
+                    <div class="modal fade" id="addItemModal<?= $tabel['id_tabel'] ?>" tabindex="-1" aria-labelledby="addItemModalLabel<?= $tabel['id_tabel'] ?>" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addItemModalLabel<?= $tabel['id_tabel'] ?>">Add Item to <?= htmlspecialchars($tabel['judul_tabel']) ?></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="buatItem.php" method="POST">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
+                                        <input type="text" class="form-control mb-3" required name="nama_item" placeholder="Item Name">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Editing Table Title -->
+                    <div class="modal fade" id="editTableModal<?= $tabel['id_tabel'] ?>" tabindex="-1" aria-labelledby="editTableModalLabel<?= $tabel['id_tabel'] ?>" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editTableModalLabel<?= $tabel['id_tabel'] ?>">Edit List Title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="editTable.php" method="POST">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
+                                        <input type="text" class="form-control mb-3" required name="judul_tabel" placeholder="New List Title" value="<?= htmlspecialchars($tabel['judul_tabel']) ?>">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Deleting Table -->
+                    <div class="modal fade" id="deleteTableModal<?= $tabel['id_tabel'] ?>" tabindex="-1" aria-labelledby="deleteTableModalLabel<?= $tabel['id_tabel'] ?>" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteTableModalLabel<?= $tabel['id_tabel'] ?>">Delete List</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="deleteTable.php" method="POST">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
+                                        <p>Are you sure you want to delete this list and all its items?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-success">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Editing Task -->
+                    <div class="modal fade" id="editTaskModal<?= $task['nama_item'] ?>" tabindex="-1" aria-labelledby="editTaskModalLabel<?= $task['nama_item'] ?>" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editTaskModalLabel<?= $task['nama_item'] ?>">Edit Task</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="editTask.php" method="POST">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
+                                        <input type="text" class="form-control mb-3" required name="nama_item" placeholder="Task Name" value="<?= htmlspecialchars($task['nama_item']) ?>">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Deleting Task -->
+                    <div class="modal fade" id="deleteTaskModal<?= $task['nama_item'] ?>" tabindex="-1" aria-labelledby="deleteTaskModalLabel<?= $task['nama_item'] ?>" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteTaskModalLabel<?= $task['nama_item'] ?>">Delete Task</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="deleteTask.php" method="POST">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
+                                        <input type="hidden" name="nama_item" value="<?= htmlspecialchars($task['nama_item']) ?>">
+                                        <p>Are you sure you want to delete this task?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-success">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                <?php 
+                    $count++;
+                    if ($count % 2 == 0) {
+                        echo '</div>'; // Close row after two cards
+                    }
+                endforeach; 
+                if ($count % 2 != 0) {
+                    echo '</div>'; // Close the last row if there's only one card
+                }
+                ?>
             </div>
-        </div> 
+        </div>
+
+
     </div>
 </body>
 </html>
