@@ -317,33 +317,12 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                         <div class="card task-card border-0 shadow-sm mb-4" style="background-color: #f8f9fa; border-radius: 8px;"> <!-- Soft background and rounded corners -->
                             <div class="card-body">
                                 <div class="d-flex justify-content-between mb-3">
-                                    <!-- Table Title and Dropdown with Edit/Delete -->
+                                    <!-- Table Title -->
                                     <div class="d-flex">
                                         <h5 class="text-start card-title align-self-center me-2"><?= htmlspecialchars($tabel['judul_tabel']) ?></h5>
-
-                                        <!-- Edit/Delete Dropdown -->
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm px-2 dropdown-toggle tombol_drop" type="button" id="dropdownTableButton<?= $tabel['id_tabel'] ?>" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
-                                                
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownTableButton<?= $tabel['id_tabel'] ?>">
-                                                <!-- Edit List Option -->
-                                                <li>
-                                                    <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editTableModal<?= $tabel['id_tabel'] ?>">
-                                                        <i class="fa-solid fa-pen-to-square"></i> Edit
-                                                    </button>
-                                                </li>
-                                                <!-- Delete List Option -->
-                                                <li>
-                                                    <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteTableModal<?= $tabel['id_tabel'] ?>">
-                                                        <i class="fa-solid fa-trash"></i> Delete
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </div>
 
-                                    <!-- Example split danger button -->
+                                    <!-- Table Dropdown -->
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-primary align-self-center px-3" data-bs-toggle="modal" data-bs-target="#addItemModal<?= $tabel['id_tabel'] ?>">Add Task</button>
                                         <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
@@ -352,13 +331,14 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteTableModal<?= $tabel['id_tabel'] ?>">
-                                                        <i class="fa-solid fa-trash"></i> Delete
+                                                    <i class="fa-solid fa-trash"></i> Delete
                                                 </button>
                                             </li>
                                             <li>
                                                 <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editTableModal<?= $tabel['id_tabel'] ?>">
                                                     <i class="fa-solid fa-pen-to-square"></i> Edit
-                                                </button></li>
+                                                </button>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -367,7 +347,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                 <ul class="list-group list-group-flush text-start">
                                     <?php
                                     // Fetch tasks for the current list
-                                    $query7 = "SELECT nama_item, progress FROM itemlist WHERE id_tabel = ?";
+                                    $query7 = "SELECT id_todo, nama_item, progress FROM itemlist WHERE id_tabel = ?";
                                     $stmt7 = $db->prepare($query7);
                                     $stmt7->execute([$tabel['id_tabel']]);
                                     $tasks = $stmt7->fetchAll(PDO::FETCH_ASSOC);
@@ -377,24 +357,24 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                             <div class="d-flex">
                                                 <!-- Task Name and Progress -->
                                                 <input class="form-check-input me-2 align-self-center" type="checkbox">
-                                                <span class="align-self-center"><?= htmlspecialchars($task['nama_item']) ?></span>
-                                            </div>
+                                                <span class="align-self-center"><?= $task['nama_item'] ?></span>
+                                            </div>  
 
                                             <!-- Edit/Delete Dropdown for Task -->
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm px-2 dropdown-toggle tombol_drop" type="button" id="dropdownTaskButton<?= $task['nama_item'] ?>" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                                            <div>
+                                                <button class="btn btn-sm px-2 dropdown-toggle tombol_drop" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
                                                     <i class='bx bx-dots-horizontal-rounded fs-4'></i>
                                                 </button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownTaskButton<?= $task['nama_item'] ?>">
+                                                <ul class="dropdown-menu">
                                                     <!-- Edit Task Option -->
                                                     <li>
-                                                        <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editTaskModal<?= $task['nama_item'] ?>">
+                                                        <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editTaskModal<?= $task['id_todo'] ?>">
                                                             <i class="fa-solid fa-pen-to-square"></i> Edit
                                                         </button>
                                                     </li>
                                                     <!-- Delete Task Option -->
                                                     <li>
-                                                        <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteTaskModal<?= $task['nama_item'] ?>">
+                                                        <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteTaskModal<?= $task['id_todo'] ?>">
                                                             <i class="fa-solid fa-trash"></i> Delete
                                                         </button>
                                                     </li>
@@ -437,7 +417,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                     <h5 class="modal-title" id="editTableModalLabel<?= $tabel['id_tabel'] ?>">Edit List Title</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form action="editTable.php" method="POST">
+                                <form action="editTabel.php" method="POST">
                                     <div class="modal-body">
                                         <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
                                         <input type="text" class="form-control" required name="judul_tabel" placeholder="New List Title" value="<?= htmlspecialchars($tabel['judul_tabel']) ?>">
@@ -459,7 +439,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                     <h5 class="modal-title" id="deleteTableModalLabel<?= $tabel['id_tabel'] ?>">Delete List</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form action="deleteTable.php" method="POST">
+                                <form action="deleteTabel.php" method="POST">
                                     <div class="modal-body">
                                         <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
                                         <p class="m-0">Are you sure you want to delete this list and all its items?</p>
@@ -474,14 +454,14 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                     </div>
 
                     <!-- Modal for Editing Task -->
-                    <div class="modal fade" id="editTaskModal<?= $task['nama_item'] ?>" tabindex="-1" aria-labelledby="editTaskModalLabel<?= $task['nama_item'] ?>" aria-hidden="true">
+                    <div class="modal fade" id="editTaskModal<?= $task['id_todo'] ?>" tabindex="-1" aria-labelledby="editTaskModalLabel<?= $task['id_todo'] ?>" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="editTaskModalLabel<?= $task['nama_item'] ?>">Edit Task</h5>
+                                    <h5 class="modal-title" id="editTaskModalLabel<?= $task['id_todo'] ?>">Edit Task</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form action="editTask.php" method="POST">
+                                <form action="editItem.php" method="POST">
                                     <div class="modal-body">
                                         <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
                                         <input type="text" class="form-control" required name="nama_item" placeholder="Task Name" value="<?= htmlspecialchars($task['nama_item']) ?>">

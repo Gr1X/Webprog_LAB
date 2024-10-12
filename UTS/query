@@ -18,7 +18,7 @@ CREATE TABLE itemlist(
   id_todo INT auto_increment,
   id_tabel INT NOT NULL,
   progress VARCHAR(15) DEFAULT 'Belum',
-  nama_item VARCHAR(30) NOT NULL,
+  nama_item VARCHAR(28) NOT NULL,
   PRIMARY KEY (id_todo),
   FOREIGN KEY (id_tabel) REFERENCES tabellist(id_tabel));
 
