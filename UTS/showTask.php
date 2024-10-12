@@ -325,7 +325,7 @@
                                                 <h1 class="modal-title fs-5" id="activityModalLabel">Activity</h1>
                                             </div>
 
-                                            <!-- Input form -->
+                                            <!-- Inputs form -->
                                             <form action="#" method="post">
                                                 <div class="modal-body">
                                                     <div class="input-group d-block">
