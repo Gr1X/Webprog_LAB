@@ -142,6 +142,9 @@
         z-index: 1000;
     }
 
+    .tombol_drop[data-bs-toggle="dropdown"]::after {
+        display: none; /* Menghilangkan simbol panah bawaan */
+    }
 
 </style>
 
@@ -199,8 +202,8 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
 
                 <div class="top_content mt-3">
-                    <h2>To Do List Dashboard</h2>
-                    <p>Hello, Good Morning! Welcome<b> Jomok.</b></p>    
+                    <h2 class="">To Do List Dashboard</h2>
+                    <p class="">Hello, Good Morning! Welcome <b class="text-dark"><?php echo $username; ?>... </b></p>    
                 </div>
                 
                 
@@ -291,13 +294,34 @@
                                 
                                 <tbody>
                                     <tr>
-                                        <td>Marks</td>
-                                        <td>
-                                            <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                        <td class="p-0 pt-1">
+                                            <div class="d-flex gap-2">
+                                                <div class="form-check form-check-reverse d-flex justify-content-end align-self-center">
+                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                </div>
+                                                <p class="m-0 p-0 align-self-center">Marks</p>
+                                            </div>
+                                        </td>
+                                        <td class="d-flex justify-content-end p-0">
+                                            <div class="align-self-center">
+                                                <div class="dropdown-center">
+                                                    <form action="" method="post">
+                                                        <button class="btn btn-sm dropdown-toggle tombol_drop" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class='bx bx-dots-horizontal-rounded align-self-center fs-4'></i>
+                                                        </button>
+    
+                                                        <ul class="dropdown-menu">
+                                                            <div class="d-flex justify-content-center">
+                                                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen-to-square"></i></a></li>
+                                                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash"></i></a></li>    
+                                                            </div>
+                                                        </ul>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
+
 
                                     <tr>
                                         <td class="">Marks</td>
