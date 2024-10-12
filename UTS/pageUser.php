@@ -124,10 +124,22 @@
             <ul class="list-unstyled">
                 <li>
                     <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark" data-bs-toggle="modal" data-bs-target="#firstNameModal">
-                        Change my firstname<i class='bx bx-chevron-right text-dark'></i>
+                        Change My Firstname<i class='bx bx-chevron-right text-dark'></i>
                     </button>
+
+                    <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark" data-bs-toggle="modal" data-bs-target="#lastNameModal">
+                        Change My Lastname<i class='bx bx-chevron-right text-dark'></i>
+                    </button>
+
+                    <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark" data-bs-toggle="modal" data-bs-target="#passwordModal">
+                        Reset My Password<i class='bx bx-chevron-right text-dark'></i>
+                    </button>
+
+                    <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark" data-bs-toggle="modal" data-bs-target="#emailModal">
+                        Change My Email<i class='bx bx-chevron-right text-dark'></i>
+                    </button>
+
                 </li>
-                <li><a href="#" class="text-decoration-none text-secondary fw-medium">Change my last name</a></li>                            
             </ul>
         </div>
         </div>
@@ -139,22 +151,92 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
         <div class="modal-header">
-            <h1 class="modal-title fs-5 fw-bold" id="firstNameLabel">Change firstname</h1>
+            <h1 class="modal-title fs-5 fw-bold" id="firstNameLabel">Change Firstname</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <form action="" method="post">
-                <input type="text" aria-label="First name" class="form-control">
+                <label for="">First Name</label>
+                <input type="text" aria-label="First name" class="form-control" placeholder="Input Firstname">
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-target="#manageModal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary">Save changes</button>
         </div>
         </div>
     </div>
 </div>
 
+<!-- Modal Change Nama Belakang -->
+<div class="modal fade" id="lastNameModal" tabindex="-1" aria-labelledby="lastNameLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5 fw-bold" id="lastNameLabel">Change Lastname</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="" method="post">
+                <label for="">New Last Name</label>
+                <input type="text" aria-label="Last name" class="form-control" placeholder="Input Lastname">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Reset Password -->
+<div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5 fw-bold" id="passwordLabel">Reset Password</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="" method="post">
+                <label for="">Old Password</label>
+                <input type="password" aria-label="oldpassword" class="form-control" placeholder="Input Old Password">
+                <label for="">Re-input Old Password</label>
+                <input type="password" aria-label="repassword" class="form-control" placeholder="Reinput Old Password">
+                <label for="">New Password</label>
+                <input type="password" aria-label="newpassword" class="form-control" placeholder="New Password">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Change Email -->
+<div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5 fw-bold" id="emailLabel">Reset Password</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="" method="post">
+                <label for="">Change Email</label>
+                <input type="email" aria-label="newpassword" class="form-control" placeholder="Change Email">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </div>
+</div>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
