@@ -354,11 +354,17 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
 
                                     foreach ($tasks as $task): ?>
                                         <li class="list-group-item d-flex justify-content-between align-items-center p-2 bg-light">
-                                            <div class="d-flex">
-                                                <!-- Task Name and Progress -->
+                                          <form action="editProgress.php" method="POST" class="d-flex align-items-center">
+                                              <!-- Task Name and Progress -->
+                                              <input class="form-check-input me-2" type="checkbox" name="progress" value="<?=$task['progress']?>" <?= $task['progress'] === "Selesai" ? 'checked' : '' ?> onchange="this.form.submit()">
+                                              <input type="hidden" name="id_todo" value="<?= $task['id_todo'] ?>">
+                                              <span><?= htmlspecialchars($task['nama_item']) ?></span>
+                                          </form>
+                                        
+                                            <!-- <div class="d-flex">
                                                 <input class="form-check-input me-2 align-self-center" type="checkbox">
                                                 <span class="align-self-center"><?= $task['nama_item'] ?></span>
-                                            </div>
+                                            </div> -->
 
                                             <!-- Edit/Delete Dropdown for Task -->
                                             <div>
