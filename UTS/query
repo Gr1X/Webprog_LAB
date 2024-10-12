@@ -9,15 +9,15 @@ CREATE TABLE Account(
 
 CREATE TABLE tabellist(
   id_tabel INT auto_increment,
-  username VARCHAR(50) UNIQUE NOT NULL,
+  username VARCHAR(50) NOT NULL,
   judul_tabel VARCHAR(70) NOT NULL,
   PRIMARY KEY (id_tabel),
   FOREIGN KEY (username) REFERENCES Account(username));
 
 CREATE TABLE itemlist(
   id_todo INT auto_increment,
-  judul_tabel VARCHAR(70) NOT NULL,
-  progress VARCHAR(15) DEFAULT "Belum",
+  id_tabel INT NOT NULL,
+  progress VARCHAR(15) DEFAULT 'Belum',
   nama_item VARCHAR(100) NOT NULL,
   PRIMARY KEY (id_todo),
   FOREIGN KEY (id_tabel) REFERENCES tabellist(id_tabel));

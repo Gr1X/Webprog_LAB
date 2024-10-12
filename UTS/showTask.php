@@ -1,6 +1,15 @@
 <?php 
-  
+session_start();
+require_once ('db.php');
 
+$username = $_SESSION['username'];
+
+$query5 = "SELECT id_tabel, judul_tabel
+           FROM tabellist
+           WHERE username = ?";
+$stmt5 = $db->prepare($query5);
+$stmt5->execute([$username]);
+$tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -142,7 +151,7 @@
 
 </style>
 
-<body>
+<>
     <div class="top-bar"></div>
 
     <div class="l-navbar" id="nav-bar">
@@ -251,7 +260,7 @@
                                         <div class="d-flex justify-content-center p-2">
                                             <i class="fa-solid fa-envelope"></i>
                                         </div>
-                                        <input type="text" class="form-control border border-0 border-bottom border-2 bg-light" required name="judul_tabel" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control border border-0 border-bottom border-2 bg-light" required name="judul_tabel" placeholder="Judul List" aria-label="Judul List" aria-describedby="basic-addon1">
                                     </div>
                                 </div>
                                 
@@ -264,119 +273,96 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
 
         <div class="container text-center overflow-auto" style="max-height: 400px;">
             <div class="row mb-3">
-                <div class="col">
-                    <div class="task-card card shadow" style="">
-                        <div class="card-body">
-                            <h5 class="text-start card-title">Monday</h5>
-                            <div class="">
-                                <table class="table text-start">
-                                
-                                    <tbody>
-                                        <tr>
-                                            <td>Marks</td>
-                                            <td>
-                                                <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                                                </div>
-                                            </td>
-                                        </tr>
+                <?php 
+                $count = 0;
+                // batasin muncul 2 per baris
+                foreach ($tabellist as $tabel): 
+                    if ($count % 2 == 0) {
+                        if ($count > 0) {
+                            echo '</div>';
+                        }
+                        echo '<div class="row mb-3">'; // buat baris baru
+                    }
+                ?>
+                    <div class="col-md-6">
+                        <div class="task-card card shadow">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="text-start card-title"><?= htmlspecialchars($tabel['judul_tabel']) ?></h5>
+                                    <!-- Add Item Button -->
+                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal<?= $tabel['id_tabel'] ?>">
+                                        Add Item
+                                    </button>
+                                </div>
+                                <div>
+                                    <table class="table text-start">
+                                        <tbody>
+                                            <?php
+                                            // fetch item untuk list
+                                            $query7 = "SELECT nama_item, progress FROM itemlist WHERE id_tabel = ?";
+                                            $stmt7 = $db->prepare($query7);
+                                            $stmt7->execute([$tabel['id_tabel']]);
+                                            $tasks = $stmt7->fetchAll(PDO::FETCH_ASSOC);
 
-                                        <tr>
-                                            <td class="">Marks</td>
-                                            <td>
-                                                <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="">Marks</td>
-                                            <td>
-                                                <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
+                                            foreach ($tasks as $task): ?>
+                                            <tr>
+                                                <td><?= htmlspecialchars($task['nama_item']) ?></td>
+                                                <td>
+                                                    <div class="form-check form-check-reverse d-flex justify-content-end">
+                                                        <input class="form-check-input" type="checkbox" value="" <?= $task['progress'] == 'Selesai' ? 'checked' : '' ?> disabled>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col">
-                    <div class="task-card card shadow" style="">
-                        <div class="card-body">
-                            <h5 class="text-start card-title">Monday</h5>
-                            <div class="">
-                                <table class="table text-start">
-                                
-                                    <tbody>
-                                        <tr>
-                                            <td>Marks</td>
-                                            <td>
-                                                <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                                                </div>
-                                            </td>
-                                        </tr>
 
-                                        <tr>
-                                            <td class="">Marks</td>
-                                            <td>
-                                                <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="">Marks</td>
-                                            <td>
-                                                <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="">Marks</td>
-                                            <td>
-                                                <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="">Marks</td>
-                                            <td>
-                                                <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
+                    <!-- Modal for Adding Item -->
+                    <div class="modal fade" id="addItemModal<?= $tabel['id_tabel'] ?>" tabindex="-1" aria-labelledby="addItemModalLabel<?= $tabel['id_tabel'] ?>" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addItemModalLabel<?= $tabel['id_tabel'] ?>">Add Item to <?= htmlspecialchars($tabel['judul_tabel']) ?></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="buatItem.php" method="POST">
+                                    <div class="modal-body">
+                                        <div class="input-group mb-3">
+                                            <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
+                                            <input type="text" class="form-control border border-0 border-bottom border-2 bg-light" required name="nama_item" placeholder="Nama Item" aria-label="Nama Item" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
+                <?php 
+                    $count++;
+                    // Tutup baris kalau udah 2
+                    if ($count % 2 == 0) {
+                        echo '</div>';
+                    }
+                endforeach; 
+
+                // di akhir, tutup juga klo cuma 1
+                if ($count % 2 != 0) {
+                    echo '</div>';
+                }
+                ?>
+            </div>
         </div>
     </div>
-
 </body>
 </html>
