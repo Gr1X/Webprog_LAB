@@ -204,16 +204,16 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="" method="post">
+            <form action="updateFirstName.php" method="post">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="firstnameInput" placeholder="New Firstname">
+                    <input type="text" class="form-control" id="firstnameInput" placeholder="New Firstname" name="fname">
                     <label for="firstnameInput">New Firstname</label>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
             </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
         </div>
         </div>
     </div>
@@ -228,16 +228,16 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="" method="post">
+            <form action="updateLastName.php" method="post">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="lastnameInput" placeholder="New Lastname">
+                    <input type="text" class="form-control" id="lastnameInput" placeholder="New Lastname" name="lname">
                     <label for="lastnameInput">New Lastname</label>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
             </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
         </div>
         </div>
     </div>

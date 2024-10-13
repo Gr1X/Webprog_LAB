@@ -3,29 +3,29 @@
     require_once('db.php');
     
     $id = $_SESSION["id_account"];
-    $newEmail = $_POST['newEmail'];
 
-    $query22 = "SELECT * FROM Account
+    $fname = $_POST['fname'];
+
+    $query24 = "SELECT * FROM Account
                 WHERE id_account = ?";
 
-    $stmt22 = $db->prepare($query22);
-    $stmt22->execute([$id]);
-    $row = $stmt22->fetch(PDO::FETCH_ASSOC);
+    $stmt24 = $db->prepare($query24);
+    $stmt24->execute([$id]);
+    $row = $stmt24->fetch(PDO::FETCH_ASSOC);
 
 
     if(!$row){
         echo "Login Failed! Please Re-login";
         header("location: login.php");
       } else {
-        $query23 = "UPDATE Account 
-                    SET email = '$newEmail'
+        $query25 = "UPDATE Account 
+                    SET namaDepan = '$fname'
                     WHERE id_account = ?";
 
-        $stmt23 = $db->prepare($query23);
-        $stmt23->execute([$id]);
-        $row = $stmt23->fetch(PDO::FETCH_ASSOC);
+        $stmt25 = $db->prepare($query25);
+        $stmt25->execute([$id]);
+        $row = $stmt25->fetch(PDO::FETCH_ASSOC);
 
-        $_SESSION['email'] = $newEmail;
         header('location: pageUser.php');
     } 
 ?>
