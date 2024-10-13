@@ -4,6 +4,8 @@
         header('location:inputLogin.php');
     }
     $username = $_SESSION['username'];
+    $email = $_SESSION['email'];
+    
 ?>
 
 <!DOCTYPE html>
@@ -171,7 +173,17 @@
 
                         <div class="log-out-info align-self-center text-dark">
                             <h6> <?php echo $username; ?> </h6>
-                            <p>Python Dev</p>
+                            <p> 
+                                <?php 
+                                // Batasi panjang email maksimal 15 karakter
+                                $max_length = 15;
+                                if (strlen($email) > $max_length) {
+                                    echo substr($email, 0, $max_length) . '...';
+                                } else {
+                                    echo $email;
+                                }
+                                ?>
+                            </p>
                         </div>
                     </a>
                     <div>
