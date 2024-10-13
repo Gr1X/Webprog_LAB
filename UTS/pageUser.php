@@ -105,8 +105,8 @@
                 <p class="fw-medium text-secondary mb-2">Account Details</p>
                 <div class="col-md-12">
                     <div class="card card-custom border border-0 shadow-sm">
-                        <h3 class="fw-semibold"><?php $akun['username']; ?></h3>
-                        <h5 class="text-secondary pb-4"><?= $akun['namaDepan'] . $akun['nama Belakang'];?></h5>
+                        <h3 class="fw-semibold"><?php $akun['username'] ?></h3>
+                        <h5 class="text-secondary pb-4"><?= $akun['namaDepan']?></h5>
                         <p class="fw-semibold"><?= $akun['email'] ?></p>
                         <hr>
                         <div class="d-flex justify-content-between">

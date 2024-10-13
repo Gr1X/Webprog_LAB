@@ -268,20 +268,20 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                     <ul class="dropdown-menu shadow">
                         <li class="d-flex justify-content-between">
                             <label class="dropdown-item" style="pointer-events: none;">All</label>
-                            <div class="form-check form-check-reverse d-flex align-self-center">
-                                <input class="form-check-input" type="radio" name="filter" value="all" onchange="this.form.submit()" <?= $filter == 'all' ? 'checked' : '' ?>>
+                            <div class="form-check align-self-center m-0 p-0">
+                                <input class="form-check-input mx-3 p-2" type="radio" name="filter" value="all" onchange="this.form.submit()" <?= $filter == 'all' ? 'checked' : '' ?>>
                             </div>
                         </li>
-                        <li class="d-flex justify-content-between">
+                        <li class="d-flex justify-content-between m-0 p-0">
                             <label class="dropdown-item" style="pointer-events: none;">Completed</label>
-                            <div class="form-check form-check-reverse d-flex align-self-center">
-                                <input class="form-check-input" type="radio" name="filter" value="selesai" onchange="this.form.submit()" <?= $filter == 'selesai' ? 'checked' : '' ?>>
+                            <div class="form-check d-flex align-self-center">
+                                <input class="form-check-input mx-3 p-2" type="radio" name="filter" value="selesai" onchange="this.form.submit()" <?= $filter == 'selesai' ? 'checked' : '' ?>>
                             </div>
                         </li>
                         <li class="d-flex justify-content-between">
                             <label class="dropdown-item" style="pointer-events: none;">Uncompleted</label>
-                            <div class="form-check form-check-reverse d-flex align-self-center">
-                                <input class="form-check-input" type="radio" name="filter" value="belum" onchange="this.form.submit()" <?= $filter == 'belum' ? 'checked' : '' ?>>
+                            <div class="form-check d-flex align-self-center">
+                                <input class="form-check-input mx-3 p-2" type="radio" name="filter" value="belum" onchange="this.form.submit()" <?= $filter == 'belum' ? 'checked' : '' ?>>
                             </div>
                         </li>
                     </ul>
@@ -333,7 +333,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
             $count = 0;
             foreach ($tabellist as $tabel): 
                 if ($count % 2 == 0) {
-                    echo '<div class="row mb-3">'; // Start new row
+                    echo '<div class="row mb-4">'; // Start new row
                 }
 
                 // Build the query based on the filter
@@ -364,20 +364,20 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
 
                                 <!-- Table Dropdown -->
-                                <div class="btn-group">
+                                <div class="btn-group dropdown-center">
                                     <button type="button" class="btn btn-primary align-self-center px-3" data-bs-toggle="modal" data-bs-target="#addItemModal<?= $tabel['id_tabel'] ?>">Add Task</button>
                                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span class="visually-hidden">Toggle Dropdown</span>
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteTableModal<?= $tabel['id_tabel'] ?>">
-                                                <i class="fa-solid fa-trash"></i> Delete
+                                            <button class="dropdown-item fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#editTableModal<?= $tabel['id_tabel'] ?>">
+                                                <i class="fa-solid fa-pen-to-square"></i> Edit
                                             </button>
                                         </li>
                                         <li>
-                                            <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editTableModal<?= $tabel['id_tabel'] ?>">
-                                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                                            <button class="dropdown-item fw-semibold text-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteTableModal<?= $tabel['id_tabel'] ?>">
+                                                <i class="fa-solid fa-trash"></i> Delete
                                             </button>
                                         </li>
                                     </ul>
@@ -390,28 +390,28 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                 // Fetch tasks for the current list
                                 if (!empty($tasks)){
                                     foreach ($tasks as $task): ?>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center p-2 bg-light">
+                                        <li class="list-group-item d-flex justify-content-between p-2 bg-light">
                                           <form action="editProgress.php" method="POST" class="d-flex align-items-center">
                                               <!-- Task Name and Progress -->
-                                              <input class="form-check-input me-2" type="checkbox" name="progress" value="<?=$task['progress']?>" <?= $task['progress'] === "Selesai" ? 'checked' : '' ?> onchange="this.form.submit()">
+                                              <input class="form-check-input m-1 p-2" type="checkbox" name="progress" value="<?=$task['progress']?>" <?= $task['progress'] === "Selesai" ? 'checked' : '' ?> onchange="this.form.submit()">
                                               <input type="hidden" name="id_todo" value="<?= $task['id_todo'] ?>">
                                               <span><?= htmlspecialchars($task['nama_item']) ?></span>
                                           </form>
                                             <!-- Edit/Delete Dropdown for Task -->
-                                            <div>
+                                            <div class="dropdown-center">
                                                 <button class="btn btn-sm px-2 dropdown-toggle tombol_drop" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
-                                                    <i class='bx bx-dots-horizontal-rounded fs-4'></i>
+                                                    <i class='bx bx-dots-horizontal-rounded fs-4 text-center'></i>
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <!-- Edit Task Option -->
                                                     <li>
-                                                        <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editTaskModal<?= $task['id_todo'] ?>">
+                                                        <button class="dropdown-item fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#editTaskModal<?= $task['id_todo'] ?>">
                                                             <i class="fa-solid fa-pen-to-square"></i> Edit
                                                         </button>
                                                     </li>
                                                     <!-- Delete Task Option -->
                                                     <li>
-                                                        <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteTaskModal<?= $task['id_todo'] ?>">
+                                                        <button class="dropdown-item text-danger text-danger fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#deleteTaskModal<?= $task['id_todo'] ?>">
                                                             <i class="fa-solid fa-trash"></i> Delete
                                                         </button>
                                                     </li>
@@ -466,7 +466,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                     <?php endforeach;
                                 }
                                 else{ ?>
-                                    <li class="list-group-item text-center text-muted">No tasks available</li>
+                                    <li class="list-group-item text-center fw-semibold fst-italic text-muted bg-light text-center mt-auto">No tasks available</li>
                                 <?php }?>
                                 </ul>
                             </div>
@@ -478,13 +478,13 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="addItemModalLabel<?= $tabel['id_tabel'] ?>">Add Item to <?= htmlspecialchars($tabel['judul_tabel']) ?></h5>
+                                    <h5 class="modal-title" id="addItemModalLabel<?= $tabel['id_tabel'] ?>">Add Task to <?= htmlspecialchars($tabel['judul_tabel']) ?></h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <form action="buatItem.php" method="POST">
                                     <div class="modal-body">
                                         <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
-                                        <input type="text" class="form-control mb-3" required name="nama_item" placeholder="Item Name">
+                                        <input type="text" class="form-control mb-3" required name="nama_item" placeholder="Task Name">
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
