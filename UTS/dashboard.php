@@ -220,23 +220,10 @@
 
         <div class="dropdown-center px-2 ps-3 mb-3">
             <button class="btn btn-primary dropdown-toggle px-4 tombol_filter text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Filter by
+                Select List
             </button>
-    
-            <ul class="dropdown-menu shadow">
-                <li class="d-flex justify-content-between">
-                    <label class="dropdown-item" style="pointer-events: none;">Completed</label>
-                    <div class="form-check form-check-reverse d-flex align-self-center">
-                        <input class="form-check-input" type="checkbox" value="completed" id="reverseCheck1">
-                    </div>
-                </li>
-                <li class="d-flex justify-content-between">
-                    <label class="dropdown-item" style="pointer-events: none;">Uncompleted</label>
-                    <div class="form-check form-check-reverse d-flex align-self-center">
-                        <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                    </div>
-                </li>
-            </ul>
+
+            
         </div>
 
         <div class="container text-center">
@@ -254,7 +241,7 @@
                                 <table class="table text-start">
                                 <tbody>
                                     <tr>
-                                        <td class="text-light fw-bold">Task</td>
+                                        <td class="text-light fw-bold">Total Task</td>
                                         <td>
                                             <div class="form-check form-check-reverse d-flex justify-content-end">
                                                 <p class="fw-bold p-0 m-0 text-white">10</p>
@@ -263,7 +250,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td class="text-warning fw-bold">On progress</td>
+                                        <td class="text-warning fw-bold">In Progress</td>
                                         <td>
                                             <div class="form-check form-check-reverse d-flex justify-content-end">
                                                 <p class="fw-bold p-0 m-0 text-warning">20</p>
@@ -272,7 +259,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td class="text-success fw-bold">Done</td>
+                                        <td class="text-success fw-bold">Completed</td>
                                         <td>
                                             <div class="form-check form-check-reverse d-flex justify-content-end">
                                                 <p class="fw-bold p-0 m-0 text-success">30</p>
@@ -283,7 +270,7 @@
                                 </table>
                             </div>
 
-                            <a href="#" class="btn btn-primary mt-5 d-block">See List</a>
+                            <a href="showtask.php" class="btn btn-primary mt-5 d-block">See List</a>
                         </div>
                     </div>
                 </div>

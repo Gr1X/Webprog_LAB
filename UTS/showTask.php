@@ -5,10 +5,11 @@ require_once ('db.php');
 if(!(isset($_SESSION['username']))){
   header('location:inputLogin.php');
 }
-$filter = $_SESSION['filter'];
+$filter = isset($_POST['filter']) ? trim($_POST['filter']) : 'all';
 $username = $_SESSION['username'];
 $email = $_SESSION['email'];
 $keyword = isset($_POST['keyword']) ? trim($_POST['keyword']) : '';
+
 
 $query5 = "SELECT id_tabel, judul_tabel
            FROM tabellist
@@ -249,10 +250,9 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                     <p class="text-muted fw-semibold">Display all your activities</p>    
                 </div>
                 
-                
                 <div class="top_content">
                     <form action="showTask.php" method="POST" >
-                        <input type="text" name="keyword" placeholder="Search">
+                        <input type="text" name="keyword" placeholder="Search Item">
                         <button type="submit">Search</button>
                     </form>
                 </div>
@@ -265,7 +265,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                     Filter by
                 </button>
     
-                <form action="filter.php" method="POST">
+                <form action="showTask.php" method="POST">
                     <ul class="dropdown-menu shadow">
                         <li class="d-flex justify-content-between">
                             <label class="dropdown-item" style="pointer-events: none;">All</label>
@@ -325,7 +325,6 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="container text-center overflow-auto py-1" style="max-height: 480px;">
