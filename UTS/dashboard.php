@@ -191,7 +191,9 @@
 
                 <div class="top_content mt-3">
                     <h2 class="">To Do List Dashboard</h2>
-                    <p class="">Hello, Good Morning! Welcome <b class="text-dark"><?php echo $username; ?>... </b></p>    
+                    <i>
+                        <p class="fs-5">Hello, Good Morning! Welcome <b class="text-dark"><?php echo $username;?></b></p>    
+                    </i>
                 </div>
                 
                 
@@ -204,19 +206,20 @@
             </div>
         </div>
 
-        <div class="dropdown-center px-3 mb-3">
-            <button class="btn btn-primary dropdown-toggle px-4 rounded-3 fw-semibold" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="dropdown-center px-2 ps-3 mb-3">
+            <button class="btn btn-primary dropdown-toggle px-4 tombol_filter text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Filter by
             </button>
+    
             <ul class="dropdown-menu shadow">
                 <li class="d-flex justify-content-between">
-                    <label class="dropdown-item text-success" href="#">Completed</label>
+                    <label class="dropdown-item" style="pointer-events: none;">Completed</label>
                     <div class="form-check form-check-reverse d-flex align-self-center">
                         <input class="form-check-input" type="checkbox" value="completed" id="reverseCheck1">
                     </div>
                 </li>
                 <li class="d-flex justify-content-between">
-                    <a class="dropdown-item text-danger" href="#">Uncompleted</a>
+                    <label class="dropdown-item" style="pointer-events: none;">Uncompleted</label>
                     <div class="form-check form-check-reverse d-flex align-self-center">
                         <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
                     </div>

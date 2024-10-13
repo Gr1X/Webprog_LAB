@@ -1,3 +1,16 @@
+<?php 
+    session_start();
+    require_once ('db.php');
+
+    $id = $_SESSION['id_account'];
+
+    $query17 = "SELECT * FROM Account WHERE id_account = ? ";
+    $stmt17 = $db->prepare($query17);
+    $stmt17->execute([$id]);
+    $akun = $stmt17->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +54,27 @@
             background-color: #212B44;
             color: #FFFFFF;
         }
+        
+        /* width */
+        ::-webkit-scrollbar {
+        width: 5px;
+        }
 
+        /* Track */
+        ::-webkit-scrollbar-track {
+        background: #d9d9d9d9; 
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+        background: #888; 
+        border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+        background: #555; 
+        }
     </style>
 </head>
 
@@ -72,10 +105,9 @@
                 <p class="fw-medium text-secondary mb-2">Account Details</p>
                 <div class="col-md-12">
                     <div class="card card-custom border border-0 shadow-sm">
-                        <h3 class="fw-semibold">KayooH264</h3>
-                        <h5 class="text-secondary pb-4">Calvin Yoananda</h5>
-                        <p class="fw-semibold">calvinsang.jawa@student.umm.ac.id</p>
-                        <p class="fw-semibold">*************</p>
+                        <h3 class="fw-semibold"><?php $akun['username']; ?></h3>
+                        <h5 class="text-secondary pb-4"><?= $akun['namaDepan'] . $akun['nama Belakang'];?></h5>
+                        <p class="fw-semibold"><?= $akun['email'] ?></p>
                         <hr>
                         <div class="d-flex justify-content-between">
                             <button type="button" class="text-decoration-none text-dark fw-medium bg-transparent border border-0" data-bs-toggle="modal" data-bs-target="#manageModal">Manage Account</button>
@@ -87,24 +119,6 @@
                             </div>
                         </div>
                         
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Manage Your Account Section -->
-            <div class="row manage-account">
-                <p class="fw-medium text-secondary mb-2">Manage Your Account</p>
-                <div class="col-md-12">
-                    <div class="card card-custom border border-0 shadow-sm">
-                        <h3 class="fw-semibold">Change my Username</h3>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-decoration-none text-secondary fw-medium">Change my first name</a></li>
-                            <li><a href="#" class="text-decoration-none text-secondary fw-medium">Change my last name</a></li>
-                        </ul>
-                        <ul class="list-unstyled mt-3">
-                            <li><a href="#" class="text-decoration-none text-dark fw-semibold fs-6">Change my email</a></li>
-                            <li><a href="#" class="text-decoration-none text-dark fw-semibold fs-6">Reset Password</a></li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -122,23 +136,28 @@
         </div>
         <div class="modal-body">
             <ul class="list-unstyled">
+                <li class="">
+                    <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark fw-semibold text-muted" data-bs-toggle="modal" data-bs-target="#firstNameModal">
+                        Change My Firstname
+                    </button>
+                </li>
+
                 <li>
-                    <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark" data-bs-toggle="modal" data-bs-target="#firstNameModal">
-                        Change My Firstname<i class='bx bx-chevron-right text-dark'></i>
+                    <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark fw-semibold text-muted" data-bs-toggle="modal" data-bs-target="#lastNameModal">
+                        Change My Lastname
                     </button>
+                </li>
 
-                    <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark" data-bs-toggle="modal" data-bs-target="#lastNameModal">
-                        Change My Lastname<i class='bx bx-chevron-right text-dark'></i>
+                <li>
+                    <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark fw-semibold" data-bs-toggle="modal" data-bs-target="#passwordModal">
+                        Reset My Password
                     </button>
-
-                    <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark" data-bs-toggle="modal" data-bs-target="#passwordModal">
-                        Reset My Password<i class='bx bx-chevron-right text-dark'></i>
+                </li>
+    
+                <li>
+                    <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark fw-semibold" data-bs-toggle="modal" data-bs-target="#emailModal">
+                        Change My Email
                     </button>
-
-                    <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark" data-bs-toggle="modal" data-bs-target="#emailModal">
-                        Change My Email<i class='bx bx-chevron-right text-dark'></i>
-                    </button>
-
                 </li>
             </ul>
         </div>
@@ -156,8 +175,10 @@
         </div>
         <div class="modal-body">
             <form action="" method="post">
-                <label for="">First Name</label>
-                <input type="text" aria-label="First name" class="form-control" placeholder="Input Firstname">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="firstnameInput" placeholder="New Firstname">
+                    <label for="firstnameInput">New Firstname</label>
+                </div>
             </form>
         </div>
         <div class="modal-footer">
@@ -178,8 +199,10 @@
         </div>
         <div class="modal-body">
             <form action="" method="post">
-                <label for="">New Last Name</label>
-                <input type="text" aria-label="Last name" class="form-control" placeholder="Input Lastname">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="lastnameInput" placeholder="New Lastname">
+                    <label for="lastnameInput">New Lastname</label>
+                </div>
             </form>
         </div>
         <div class="modal-footer">
@@ -200,12 +223,20 @@
         </div>
         <div class="modal-body">
             <form action="" method="post">
-                <label for="">Old Password</label>
-                <input type="password" aria-label="oldpassword" class="form-control" placeholder="Input Old Password">
-                <label for="">Re-input Old Password</label>
-                <input type="password" aria-label="repassword" class="form-control" placeholder="Reinput Old Password">
-                <label for="">New Password</label>
-                <input type="password" aria-label="newpassword" class="form-control" placeholder="New Password">
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="oldpasswordInput" placeholder="input Old Password">
+                    <label for="oldpasswordInput">Input Old Password</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="reoldpasswordInput" placeholder="Re-input Old Password">
+                    <label for="reoldpasswordInput">Re-Input Old Password</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="newpasswordInput" placeholder="New Password">
+                    <label for="newpasswordInput">New Password</label>
+                </div>
             </form>
         </div>
         <div class="modal-footer">
@@ -221,13 +252,15 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
         <div class="modal-header">
-            <h1 class="modal-title fs-5 fw-bold" id="emailLabel">Reset Password</h1>
+            <h1 class="modal-title fs-5 fw-bold" id="emailLabel">Change Email</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <form action="" method="post">
-                <label for="">Change Email</label>
-                <input type="email" aria-label="newpassword" class="form-control" placeholder="Change Email">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="emailInput" placeholder="New Email">
+                    <label for="emailInput">New Email</label>
+                </div>
             </form>
         </div>
         <div class="modal-footer">

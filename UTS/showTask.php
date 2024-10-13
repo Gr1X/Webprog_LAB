@@ -4,7 +4,7 @@ require_once ('db.php');
 
 $username = $_SESSION['username'];
 
-$query5 = "SELECT id_tabel, judul_tabel
+$query5 = "SELECT id_tabel, judul_tabel,
            FROM tabellist
            WHERE username = ?";
 $stmt5 = $db->prepare($query5);
@@ -229,7 +229,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
             <div class="d-flex justify-content-between align-items-center mb-4">
 
                 <div class="top_content mt-3">
-                    <h2>View task</h2>
+                    <h2>Show task</h2>
                     <p class="text-muted fw-semibold">Display all your activities</p>    
                 </div>
                 
@@ -267,14 +267,14 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
     
             <div class="mb-3">
                 <button type="button" class="btn btn-success px-3 shadow" data-bs-toggle="modal" data-bs-target="#titleModal">
-                    <i class='bx bx-plus fw-bold'></i>
+                    Add Tittle <i class='bx bx-plus fw-bold'></i>
                 </button>
 
                 <div class="modal fade border border-0" id="titleModal" tabindex="-1" aria-labelledby="titleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="titleModalLabel">Input Title Task</h1>
+                                <h1 class="modal-title fs-5" id="titleModalLabel">Input Title</h1>
                             </div>
                             
                             <!-- input judul -->
