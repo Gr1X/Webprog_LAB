@@ -13,8 +13,6 @@ $query3 = "SELECT * FROM account
 $stmt3 = $db->prepare($query3);
 $stmt3->execute([$email]);
 $row = $stmt3->fetch(PDO::FETCH_ASSOC);
-  
-var_dump($row);
 
 if(!$row){
   echo "Email not found

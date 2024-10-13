@@ -4,7 +4,7 @@
 
     $id = $_SESSION['id_account'];
 
-    $query17 = "SELECT * FROM Account WHERE id_account = ? ";
+    $query17 = "SELECT * FROM Account WHERE id_account = ?";
     $stmt17 = $db->prepare($query17);
     $stmt17->execute([$id]);
     $akun = $stmt17->fetch(PDO::FETCH_ASSOC);
@@ -137,6 +137,12 @@
         <div class="modal-body">
             <ul class="list-unstyled">
                 <li class="">
+                    <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark fw-semibold text-muted" data-bs-toggle="modal" data-bs-target="#userNameModal">
+                        Change My Username
+                    </button>
+                </li>
+
+                <li class="">
                     <button type="button" class="btn btn-primary bg-transparent border border-0 text-dark fw-semibold text-muted" data-bs-toggle="modal" data-bs-target="#firstNameModal">
                         Change My Firstname
                     </button>
@@ -161,6 +167,30 @@
                 </li>
             </ul>
         </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Change Username -->
+<div class="modal fade" id="userNameModal" tabindex="-1" aria-labelledby="userNameLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 fw-bold" id="userNameLabel">Change Lastname</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="updateUsername.php" method="post">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="userNameInput" name="newUsername" placeholder="New Lastname" required>
+                        <label for="lastnameInput">New Username</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -222,26 +252,22 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="" method="post">
+            <form action="updatePassword.php" method="post">
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="oldpasswordInput" placeholder="input Old Password">
-                    <label for="oldpasswordInput">Input Old Password</label>
+                    <input type="password" class="form-control" id="oldpasswordInput" name="oldPassword" placeholder="input Old Password">
+                    <label for="oldpasswordInput">Old Password</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="reoldpasswordInput" placeholder="Re-input Old Password">
-                    <label for="reoldpasswordInput">Re-Input Old Password</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="newpasswordInput" placeholder="New Password">
+                    <input type="password" class="form-control" id="newpasswordInput" name="newPassword" placeholder="New Password">
                     <label for="newpasswordInput">New Password</label>
                 </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
             </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
         </div>
         </div>
     </div>
