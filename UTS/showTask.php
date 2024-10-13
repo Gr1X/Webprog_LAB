@@ -335,28 +335,37 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                     echo '<div class="row mb-4">'; // Start new row
                 }
 
-                // Build the query based on the filter
                 $query6 = "SELECT i.id_tabel, t.judul_tabel, i.id_todo, i.nama_item, i.progress 
-                          FROM itemlist AS i
-                          JOIN tabellist AS t ON t.id_tabel = i.id_tabel 
-                          WHERE i.id_tabel = ?";
-                
+                           FROM itemlist AS i
+                           JOIN tabellist AS t ON t.id_tabel = i.id_tabel 
+                           WHERE i.id_tabel = ?";
+
+                // Add filter condition based on progress
                 if ($filter == 'selesai') {
                     $query6 .= " AND i.progress = 'Selesai'";
                 } elseif ($filter == 'belum') {
                     $query6 .= " AND i.progress = 'Belum'";
                 }
-                  
-                
-                if (!empty($keyword)){
-                    $query6 .= " AND t.judul_tabel LIKE ?";
-                    $stmt2 = $db->prepare($query6);
-                    $stmt2->execute([$tabel['id_tabel'], "%$keyword%"]);
+
+                // Add keyword condition if it's not empty
+                if (!empty($keyword)) {
+                    $query6 .= " AND (t.judul_tabel LIKE ? OR i.nama_item LIKE ?)";
                 }
-                else{
-                    $stmt2 = $db->prepare($query6);
-                    $stmt2->execute([$tabel['id_tabel']]);
+
+                // Prepare the statement
+                $stmt2 = $db->prepare($query6);
+
+                // Bind parameters
+                $params = [$tabel['id_tabel']];
+
+                if (!empty($keyword)) {
+                    // Add keyword parameters to the array
+                    $params[] = "%$keyword%"; // For judul_tabel
+                    $params[] = "%$keyword%"; // For nama_item
                 }
+
+                // Execute the statement with the parameters
+                $stmt2->execute($params);
       
                 $tasks = $stmt2->fetchAll(PDO::FETCH_ASSOC);
       
