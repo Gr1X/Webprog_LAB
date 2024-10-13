@@ -8,6 +8,7 @@ if(!(isset($_SESSION['username']))){
 $filter = $_SESSION['filter'];
 $username = $_SESSION['username'];
 $email = $_SESSION['email'];
+$keyword = isset($_POST['keyword']) ? trim($_POST['keyword']) : '';
 
 $query5 = "SELECT id_tabel, judul_tabel
            FROM tabellist
@@ -250,9 +251,9 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                 
                 
                 <div class="top_content">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    <form action="showTask.php" method="POST" >
+                        <input type="text" name="keyword" placeholder="Search">
+                        <button type="submit">Search</button>
                     </form>
                 </div>
             </div>
@@ -346,14 +347,23 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                 } elseif ($filter == 'belum') {
                     $query6 .= " AND i.progress = 'Belum'";
                 }
-
-                // Prepare and execute the query
-                $stmt2 = $db->prepare($query6);
-                $stmt2->execute([$tabel['id_tabel']]);
+                  
+                
+                if (!empty($keyword)){
+                    $query6 .= " AND i.nama_item LIKE ?";
+                    $stmt2 = $db->prepare($query6);
+                    $stmt2->execute([$tabel['id_tabel'], "%$keyword%"]);
+                }
+                else{
+                    $stmt2 = $db->prepare($query6);
+                    $stmt2->execute([$tabel['id_tabel']]);
+                }
+      
                 $tasks = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
-                // Display table and tasks
-            ?>
+      
+                // Only display tables with tasks matching the search keyword or if no keyword is provided
+                if (!empty($tasks) || empty($keyword)) {
+                ?>
                 <div class="col-md-6 mb-2">
                     <div class="card task-card border-0 shadow-sm mb-4" style="background-color: #f8f9fa; border-radius: 8px;"> <!-- Soft background and rounded corners -->
                         <div class="card-body">
@@ -538,7 +548,8 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                     </div>
-                <?php 
+                <?php  
+                }
                     $count++;
                     if ($count % 2 == 0) {
                         echo '</div>'; // Close row after two cards
