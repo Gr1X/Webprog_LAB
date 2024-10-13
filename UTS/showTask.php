@@ -5,7 +5,9 @@ require_once ('db.php');
 if(!(isset($_SESSION['username']))){
   header('location:inputLogin.php');
 }
+$filter = $_SESSION['filter'];
 $username = $_SESSION['username'];
+$email = $_SESSION['email'];
 
 $query5 = "SELECT id_tabel, judul_tabel
            FROM tabellist
@@ -212,8 +214,18 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                         <img src="https://i.imgur.com/hczKIze.jpg" alt="Profile Image">
 
                         <div class="log-out-info align-self-center text-dark">
-                            <h6>Paul Melone</h6>
-                            <p>Python Dev</p>
+                            <h6> <?php echo $username; ?> </h6>
+                            <p> 
+                                <?php 
+                                // Batasi panjang email maksimal 15 karakter
+                                $max_length = 15;
+                                if (strlen($email) > $max_length) {
+                                    echo substr($email, 0, $max_length) . '...';
+                                } else {
+                                    echo $email;
+                                }
+                                ?>
+                            </p>
                         </div>
                     </a>
                     <div>
@@ -252,20 +264,28 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                     Filter by
                 </button>
     
-                <ul class="dropdown-menu shadow">
-                    <li class="d-flex justify-content-between">
-                        <label class="dropdown-item" style="pointer-events: none;">Completed</label>
-                        <div class="form-check form-check-reverse d-flex align-self-center">
-                            <input class="form-check-input" type="checkbox" value="completed" id="reverseCheck1">
-                        </div>
-                    </li>
-                    <li class="d-flex justify-content-between">
-                        <label class="dropdown-item" style="pointer-events: none;">Uncompleted</label>
-                        <div class="form-check form-check-reverse d-flex align-self-center">
-                            <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-                        </div>
-                    </li>
-                </ul>
+                <form action="filter.php" method="POST">
+                    <ul class="dropdown-menu shadow">
+                        <li class="d-flex justify-content-between">
+                            <label class="dropdown-item" style="pointer-events: none;">All</label>
+                            <div class="form-check form-check-reverse d-flex align-self-center">
+                                <input class="form-check-input" type="radio" name="filter" value="all" onchange="this.form.submit()" <?= $filter == 'all' ? 'checked' : '' ?>>
+                            </div>
+                        </li>
+                        <li class="d-flex justify-content-between">
+                            <label class="dropdown-item" style="pointer-events: none;">Completed</label>
+                            <div class="form-check form-check-reverse d-flex align-self-center">
+                                <input class="form-check-input" type="radio" name="filter" value="selesai" onchange="this.form.submit()" <?= $filter == 'selesai' ? 'checked' : '' ?>>
+                            </div>
+                        </li>
+                        <li class="d-flex justify-content-between">
+                            <label class="dropdown-item" style="pointer-events: none;">Uncompleted</label>
+                            <div class="form-check form-check-reverse d-flex align-self-center">
+                                <input class="form-check-input" type="radio" name="filter" value="belum" onchange="this.form.submit()" <?= $filter == 'belum' ? 'checked' : '' ?>>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
             </div>
     
             <div class="mb-3">
@@ -308,54 +328,67 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
         </div>
 
         <div class="container text-center overflow-auto py-1" style="max-height: 480px;">
-            <div class="row"> <!-- Add gutters for spacing between rows -->
-                <?php 
-                $count = 0;
-                foreach ($tabellist as $tabel): 
-                    if ($count % 2 == 0) {
-                        echo '<div class="row mb-3">'; // Start new row
-                    }
-                    $query7 = "SELECT id_todo, nama_item, progress FROM itemlist WHERE id_tabel = ?";
-                    $stmt7 = $db->prepare($query7);
-                    $stmt7->execute([$tabel['id_tabel']]);
-                    $tasks = $stmt7->fetchAll(PDO::FETCH_ASSOC);
-                ?>
-                    <div class="col-md-6 mb-2">
-                        <div class="card task-card border-0 shadow-sm mb-4" style="background-color: #f8f9fa; border-radius: 8px;"> <!-- Soft background and rounded corners -->
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <!-- Table Title -->
-                                    <div class="d-flex">
-                                        <h5 class="text-start card-title align-self-center me-2"><?= $tabel['judul_tabel'] ?></h5>
-                                    </div>
+            <div class="row">
+            <?php 
+            $count = 0;
+            foreach ($tabellist as $tabel): 
+                if ($count % 2 == 0) {
+                    echo '<div class="row mb-3">'; // Start new row
+                }
 
-                                    <!-- Table Dropdown -->
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-primary align-self-center px-3" data-bs-toggle="modal" data-bs-target="#addItemModal<?= $tabel['id_tabel'] ?>">Add Task</button>
-                                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <span class="visually-hidden">Toggle Dropdown</span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteTableModal<?= $tabel['id_tabel'] ?>">
-                                                    <i class="fa-solid fa-trash"></i> Delete
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editTableModal<?= $tabel['id_tabel'] ?>">
-                                                    <i class="fa-solid fa-pen-to-square"></i> Edit
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
+                // Build the query based on the filter
+                $query6 = "SELECT i.id_tabel, i.id_todo, i.nama_item, i.progress 
+                          FROM itemlist AS i
+                          WHERE i.id_tabel = ?";
+                
+                if ($filter == 'selesai') {
+                    $query6 .= " AND i.progress = 'Selesai'";
+                } elseif ($filter == 'belum') {
+                    $query6 .= " AND i.progress = 'Belum'";
+                }
+
+                // Prepare and execute the query
+                $stmt2 = $db->prepare($query6);
+                $stmt2->execute([$tabel['id_tabel']]);
+                $tasks = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+                // Display table and tasks
+            ?>
+                <div class="col-md-6 mb-2">
+                    <div class="card task-card border-0 shadow-sm mb-4" style="background-color: #f8f9fa; border-radius: 8px;"> <!-- Soft background and rounded corners -->
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3">
+                                <!-- Table Title -->
+                                <div class="d-flex">
+                                    <h5 class="text-start card-title align-self-center me-2"><?= htmlspecialchars($tabel['judul_tabel']) ?></h5>
                                 </div>
 
-                                <!-- Display Table Items -->
-                                <ul class="list-group list-group-flush text-start">
-                                    <?php
-                                    // Fetch tasks for the current list
+                                <!-- Table Dropdown -->
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary align-self-center px-3" data-bs-toggle="modal" data-bs-target="#addItemModal<?= $tabel['id_tabel'] ?>">Add Task</button>
+                                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span class="visually-hidden">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <button class="dropdown-item text-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteTableModal<?= $tabel['id_tabel'] ?>">
+                                                <i class="fa-solid fa-trash"></i> Delete
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editTableModal<?= $tabel['id_tabel'] ?>">
+                                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
 
-
+                            <!-- Display Table Items -->
+                            <ul class="list-group list-group-flush text-start">
+                                <?php
+                                // Fetch tasks for the current list
+                                if (!empty($tasks)){
                                     foreach ($tasks as $task): ?>
                                         <li class="list-group-item d-flex justify-content-between align-items-center p-2 bg-light">
                                           <form action="editProgress.php" method="POST" class="d-flex align-items-center">
@@ -430,7 +463,11 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php endforeach; ?>
+                                    <?php endforeach;
+                                }
+                                else{ ?>
+                                    <li class="list-group-item text-center text-muted">No tasks available</li>
+                                <?php }?>
                                 </ul>
                             </div>
                         </div>
@@ -513,8 +550,6 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                 ?>
             </div>
         </div>
-
-
     </div>
 </body>
 </html>

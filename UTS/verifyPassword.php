@@ -31,6 +31,7 @@ else{
     $_SESSION['id_account'] = $row['id_account'];
     $_SESSION['email'] = $row['email'];
     $_SESSION['username'] = $row['username'];
+    $_SESSION['filter'] = 'all';
     header('location: dashboard.php');
   }
 }
