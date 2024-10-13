@@ -9,7 +9,7 @@ $filter = $_SESSION['filter'];
 $username = $_SESSION['username'];
 $email = $_SESSION['email'];
 
-$query5 = "SELECT id_tabel, judul_tabel,
+$query5 = "SELECT id_tabel, judul_tabel
            FROM tabellist
            WHERE username = ?";
 $stmt5 = $db->prepare($query5);
