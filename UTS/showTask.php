@@ -320,7 +320,6 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                     <button type="submit" class="btn btn-success fw-semibold shadow-sm"><i class='bx bx-check fw-bold fs-4'></i></button>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>
@@ -337,8 +336,9 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                 }
 
                 // Build the query based on the filter
-                $query6 = "SELECT i.id_tabel, i.id_todo, i.nama_item, i.progress 
+                $query6 = "SELECT i.id_tabel, t.judul_tabel, i.id_todo, i.nama_item, i.progress 
                           FROM itemlist AS i
+                          JOIN tabellist AS t ON t.id_tabel = i.id_tabel 
                           WHERE i.id_tabel = ?";
                 
                 if ($filter == 'selesai') {
@@ -349,7 +349,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                   
                 
                 if (!empty($keyword)){
-                    $query6 .= " AND i.nama_item LIKE ?";
+                    $query6 .= " AND t.judul_tabel LIKE ?";
                     $stmt2 = $db->prepare($query6);
                     $stmt2->execute([$tabel['id_tabel'], "%$keyword%"]);
                 }
