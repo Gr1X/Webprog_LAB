@@ -2,6 +2,9 @@
 session_start();
 require_once ('db.php');
 
+if(!(isset($_SESSION['username']))){
+  header('location:inputLogin.php');
+}
 $username = $_SESSION['username'];
 
 $query5 = "SELECT id_tabel, judul_tabel
@@ -312,6 +315,10 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                     if ($count % 2 == 0) {
                         echo '<div class="row mb-3">'; // Start new row
                     }
+                    $query7 = "SELECT id_todo, nama_item, progress FROM itemlist WHERE id_tabel = ?";
+                    $stmt7 = $db->prepare($query7);
+                    $stmt7->execute([$tabel['id_tabel']]);
+                    $tasks = $stmt7->fetchAll(PDO::FETCH_ASSOC);
                 ?>
                     <div class="col-md-6 mb-2">
                         <div class="card task-card border-0 shadow-sm mb-4" style="background-color: #f8f9fa; border-radius: 8px;"> <!-- Soft background and rounded corners -->
@@ -319,7 +326,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="d-flex justify-content-between mb-3">
                                     <!-- Table Title -->
                                     <div class="d-flex">
-                                        <h5 class="text-start card-title align-self-center me-2"><?= htmlspecialchars($tabel['judul_tabel']) ?></h5>
+                                        <h5 class="text-start card-title align-self-center me-2"><?= $tabel['judul_tabel'] ?></h5>
                                     </div>
 
                                     <!-- Table Dropdown -->
@@ -347,10 +354,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                 <ul class="list-group list-group-flush text-start">
                                     <?php
                                     // Fetch tasks for the current list
-                                    $query7 = "SELECT id_todo, nama_item, progress FROM itemlist WHERE id_tabel = ?";
-                                    $stmt7 = $db->prepare($query7);
-                                    $stmt7->execute([$tabel['id_tabel']]);
-                                    $tasks = $stmt7->fetchAll(PDO::FETCH_ASSOC);
+
 
                                     foreach ($tasks as $task): ?>
                                         <li class="list-group-item d-flex justify-content-between align-items-center p-2 bg-light">
@@ -360,12 +364,6 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                               <input type="hidden" name="id_todo" value="<?= $task['id_todo'] ?>">
                                               <span><?= htmlspecialchars($task['nama_item']) ?></span>
                                           </form>
-                                        
-                                            <!-- <div class="d-flex">
-                                                <input class="form-check-input me-2 align-self-center" type="checkbox">
-                                                <span class="align-self-center"><?= $task['nama_item'] ?></span>
-                                            </div> -->
-
                                             <!-- Edit/Delete Dropdown for Task -->
                                             <div>
                                                 <button class="btn btn-sm px-2 dropdown-toggle tombol_drop" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
@@ -399,7 +397,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                                     <form action="editItem.php" method="POST">
                                                         <div class="modal-body">
                                                             <input type="hidden" name="id_todo" value="<?= $task['id_todo'] ?>">
-                                                            <input type="text" class="form-control" required name="nama_item" placeholder="Task Name" value="<?= htmlspecialchars($task['nama_item']) ?>">
+                                                            <input type="text" class="form-control" required name="nama_item" placeholder="Task Name" value="<?= $task['nama_item'] ?>">
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -421,7 +419,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                                     <form action="deleteItem.php" method="POST">
                                                         <div class="modal-body">
                                                             <input type="hidden" name="id_todo" value="<?= $task['id_todo'] ?>">
-                                                            <input type="hidden" name="nama_item" value="<?= htmlspecialchars($task['nama_item']) ?>">
+                                                            <input type="hidden" name="nama_item" value="<?= $task['nama_item'] ?>">
                                                             <p class="m-0">Are you sure you want to delete this task?</p>
                                                         </div>
                                                         <div class="modal-footer">
@@ -503,51 +501,6 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                     </div>
-
-                    <!-- Modal for Editing Task -->
-                    <div class="modal fade" id="editTaskModal<?= $tasks['id_todo'] ?>" tabindex="-1" aria-labelledby="editTaskModalLabel<?= $tasks['id_todo'] ?>" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editTaskModalLabel<?= $tasks['id_todo'] ?>">Edit Task</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <form action="editItem.php" method="POST">
-                                    <div class="modal-body">
-                                        <input type="text" class="form-control" required name="nama_item" placeholder="Task Name" value="<?= htmlspecialchars($task['nama_item']) ?>">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-success">Save</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal for Deleting Task -->
-                    <div class="modal fade" id="deleteTaskModal<?= $tasks['id_todo'] ?>" tabindex="-1" aria-labelledby="deleteTaskModalLabel<?= $tasks['id_todo'] ?>" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteTaskModalLabel<?= $tasks['id_todo'] ?>">Delete Task</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <form action="deleteTask.php" method="POST">
-                                    <div class="modal-body">
-                                        <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
-                                        <input type="hidden" name="nama_item" value="<?= htmlspecialchars($task['nama_item']) ?>">
-                                        <p class="m-0">Are you sure you want to delete this task?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-success">Delete</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
                 <?php 
                     $count++;
                     if ($count % 2 == 0) {
