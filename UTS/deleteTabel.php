@@ -2,6 +2,7 @@
 require_once('db.php');
 
 $id_tabel = $_POST['id_tabel'];
+$opsi = isset($_POST['opsi']) ? trim($_POST['opsi']) : 'showtask';
 
 // delete semua item pada list dulu
 $query10 = "DELETE
@@ -19,4 +20,10 @@ $query11 = "DELETE
 $result5 = $db->prepare($query11);
 $result5->execute([$id_tabel]);
 
-header('location: showTask.php');
+if($opsi == 'showtask'){
+  header('location: showTask.php');
+}
+else if($opsi == 'dashboard'){
+  
+  header(header: 'location: dashboard.php');
+}

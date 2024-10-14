@@ -6,6 +6,7 @@ require_once('db.php');
 $username = $_SESSION['username'];
 $judul_tabel = $_POST['judul_tabel'];
 $id_tabel = $_POST['id_tabel'];  
+$opsi = isset($_POST['opsi']) ? trim($_POST['opsi']) : 'showtask';
 
 $query9 = "UPDATE tabellist
            SET judul_tabel = ?
@@ -14,4 +15,9 @@ $query9 = "UPDATE tabellist
 $result3 = $db->prepare($query9);
 $result3->execute([$judul_tabel, $username, $id_tabel]);
 
-header('location: showTask.php');
+if($opsi == 'showtask'){
+  header('location: showTask.php');
+}
+else if($opsi == 'dashboard'){
+  header(header: 'location: dashboard.php');
+}

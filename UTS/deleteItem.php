@@ -2,8 +2,8 @@
 require_once('db.php');
 
 $id_todo = $_POST['id_todo'];
+$opsi = isset($_POST['opsi']) ? trim($_POST['opsi']) : 'showtask';
 
-// delete semua item pada list dulu
 $query13 = "DELETE
             FROM itemlist
             WHERE id_todo = ?";
@@ -11,4 +11,14 @@ $query13 = "DELETE
 $result7 = $db->prepare($query13);
 $result7->execute([$id_todo]);
 
-header('location: showTask.php');
+
+if($opsi == 'showtask'){
+  header('location: showTask.php');
+}
+else if($opsi == 'dashboard'){
+  
+  header(header: 'location: dashboard.php');
+}
+
+
+

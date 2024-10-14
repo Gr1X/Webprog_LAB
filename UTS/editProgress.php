@@ -3,6 +3,7 @@ require_once('db.php');
 // ini edit progress doang
 $progress = $_POST['progress'];
 $id_todo = $_POST['id_todo'];  
+$opsi = isset($_POST['opsi']) ? trim($_POST['opsi']) : 'showtask';
 
 if($progress === "Belum"){
   $query14 = "UPDATE itemlist
@@ -21,4 +22,9 @@ else{
   $result9->execute([$id_todo]); 
 }
 
-header('location: showTask.php');
+if($opsi == 'showtask'){
+  header('location: showTask.php');
+}
+else if($opsi == 'dashboard'){
+  header(header: 'location: dashboard.php');
+}

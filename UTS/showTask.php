@@ -486,7 +486,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                 else{ ?>
                                     <li class="list-group-item text-center fw-semibold fst-italic text-muted bg-light text-center mt-auto">No tasks available</li>
                                 <?php }?>
-                                </ul>
+                            </ul>
                             </div>
                         </div>
                     </div>
