@@ -2,6 +2,10 @@
     session_start();
     require_once ('db.php');
 
+    if(!(isset($_SESSION['username']))){
+      header('location:inputLogin.php');
+    }
+
     $id = $_SESSION['id_account'];
 
     $query17 = "SELECT * FROM Account WHERE id_account = ?";
@@ -105,9 +109,9 @@
                 <p class="fw-medium text-secondary mb-2">Account Details</p>
                 <div class="col-md-12">
                     <div class="card card-custom border border-0 shadow-sm">
-                        <h3 class="fw-semibold"><?= $akun['username']?></h3>
-                        <h5 class="text-secondary pb-4 m-0"><?= $akun['namaDepan'] . " " . $akun['namaBelakang']?></h5>
-                        <p class="fw-semibold"><?= $akun['email'] ?></p>
+                        <h3 class="fw-semibold"><?= htmlspecialchars($akun['username'], ENT_QUOTES, 'UTF-8') ?></h3>
+                        <h5 class="text-secondary pb-4 m-0"><?= htmlspecialchars($akun['namaDepan'], ENT_QUOTES, 'UTF-8') . " " . htmlspecialchars($akun['namaBelakang'], ENT_QUOTES, 'UTF-8') ?></h5>
+                        <p class="fw-semibold"><?= htmlspecialchars($akun['email'], ENT_QUOTES, 'UTF-8') ?></p>
                         <hr>
                         <div class="d-flex justify-content-between">
                             <button type="button" class="text-decoration-none text-dark fw-medium bg-transparent border border-0" data-bs-toggle="modal" data-bs-target="#manageModal">Manage Account</button>
@@ -118,7 +122,7 @@
                                 </button>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
