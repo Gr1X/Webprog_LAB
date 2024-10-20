@@ -234,15 +234,23 @@ else{
                         <img src="https://i.imgur.com/hczKIze.jpg" alt="Profile Image">
 
                         <div class="log-out-info align-self-center text-dark">
-                            <h6> <?php echo $username; ?> </h6>
-                            <p> 
+                            <h6> 
+                                <?php 
+                                // Escape output $username untuk mencegah XSS
+                                echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); 
+                                ?> 
+                            </h6>
+                            <p>
                                 <?php 
                                 // Batasi panjang email maksimal 15 karakter
                                 $max_length = 15;
-                                if (strlen($email) > $max_length) {
-                                    echo substr($email, 0, $max_length) . '...';
+                                // Escape output $email untuk mencegah XSS
+                                $escaped_email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+                                
+                                if (strlen($escaped_email) > $max_length) {
+                                    echo substr($escaped_email, 0, $max_length) . '...';
                                 } else {
-                                    echo $email;
+                                    echo $escaped_email;
                                 }
                                 ?>
                             </p>
@@ -266,7 +274,14 @@ else{
                 <div class="top_content mt-3">
                     <h2 class="">To Do List Dashboard</h2>
                     <i>
-                        <p class="fs-5">Hello, Good Morning! Welcome <b class="text-dark"><?php echo $username;?></b></p>    
+                        <p class="fs-5">Hello, Good Morning! Welcome 
+                            <b class="text-dark">
+                                <?php 
+                                // Escape output $username untuk mencegah XSS
+                                echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); 
+                                ?>
+                            </b>
+                        </p>    
                     </i>
                 </div>
                 
@@ -277,18 +292,18 @@ else{
                             Select List
                         </button>
                         <ul class="dropdown-menu">
-                            <?php if (!empty($lists)): ?>
-                                <?php foreach ($lists as $list): ?>
-                                    <!-- The form will submit when the user clicks on a list item -->
-                                    <li>
-                                        <button class="dropdown-item" type="submit" name="select" value="<?= $list['id_tabel'] ?>">
-                                            <?= $list['judul_tabel'] ?>
-                                        </button>
-                                    </li>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <li><span class="dropdown-item">No lists available</span></li>
-                            <?php endif; ?>
+                        <?php if (!empty($lists)): ?>
+                            <?php foreach ($lists as $list): ?>
+                                <!-- The form will submit when the user clicks on a list item -->
+                                <li>
+                                    <button class="dropdown-item" type="submit" name="select" value="<?= htmlspecialchars($list['id_tabel'], ENT_QUOTES, 'UTF-8') ?>">
+                                        <?= htmlspecialchars($list['judul_tabel'], ENT_QUOTES, 'UTF-8') ?>
+                                    </button>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <li><span class="dropdown-item">No lists available</span></li>
+                        <?php endif; ?>
                         </ul>
                     </div>
                 </form>
@@ -304,19 +319,24 @@ else{
                             
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
-                                    style="width: <?php echo $progressPercentage; ?>%" 
+                                    style="width: <?php echo intval($progressPercentage); ?>%" 
                                     aria-valuemin="0" aria-valuemax="100">
                                 </div>
                             </div>
 
                             <div class="mt-4">
-                                <table class="table text-start">
+                            <table class="table text-start">
                                 <tbody>
                                     <tr>
                                         <td class="text-light fw-bold">Total Task</td>
                                         <td>
                                             <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <p class="fw-bold p-0 m-0 text-white"><?php echo isset($listProgress[0]['total_tasks']) ? $listProgress[0]['total_tasks'] : 0; ?></p>
+                                                <p class="fw-bold p-0 m-0 text-white">
+                                                    <?php 
+                                                    // Escape output untuk mencegah XSS
+                                                    echo htmlspecialchars(isset($listProgress[0]['total_tasks']) ? $listProgress[0]['total_tasks'] : 0, ENT_QUOTES, 'UTF-8'); 
+                                                    ?>
+                                                </p>
                                             </div>
                                         </td>
                                     </tr>
@@ -325,7 +345,12 @@ else{
                                         <td class="text-warning fw-bold">Not Done</td>
                                         <td>
                                             <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <p class="fw-bold p-0 m-0 text-warning"><?php echo isset($listProgress[0]['belum_tasks']) ? $listProgress[0]['belum_tasks'] : 0; ?></p>
+                                                <p class="fw-bold p-0 m-0 text-warning">
+                                                    <?php 
+                                                    // Escape output untuk mencegah XSS
+                                                    echo htmlspecialchars(isset($listProgress[0]['belum_tasks']) ? $listProgress[0]['belum_tasks'] : 0, ENT_QUOTES, 'UTF-8'); 
+                                                    ?>
+                                                </p>
                                             </div>
                                         </td>
                                     </tr>
@@ -334,12 +359,17 @@ else{
                                         <td class="text-success fw-bold">Completed</td>
                                         <td>
                                             <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <p class="fw-bold p-0 m-0 text-success"><?php echo isset($listProgress[0]['selesai_tasks']) ? $listProgress[0]['selesai_tasks'] : 0; ?></p>
+                                                <p class="fw-bold p-0 m-0 text-success">
+                                                    <?php 
+                                                    // Escape output untuk mencegah XSS
+                                                    echo htmlspecialchars(isset($listProgress[0]['selesai_tasks']) ? $listProgress[0]['selesai_tasks'] : 0, ENT_QUOTES, 'UTF-8'); 
+                                                    ?>
+                                                </p>
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
-                                </table>
+                            </table>
                             </div>
 
                             <a href="showtask.php" class="btn btn-primary mt-5 d-block">See List</a>
