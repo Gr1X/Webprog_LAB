@@ -24,9 +24,10 @@ if (isset($_SESSION['select'])){
 
   // Step 2: Fetch the selected list title and its items
   $query30 = "SELECT t.judul_tabel, i.id_todo, i.nama_item, i.progress
-                       FROM itemlist AS i
-                       JOIN tabellist AS t ON t.id_tabel = i.id_tabel
-                       WHERE t.username = ? AND t.id_tabel = ?";
+              FROM itemlist AS i
+              RIGHT JOIN tabellist AS t ON t.id_tabel = i.id_tabel
+              WHERE t.username = ? AND t.id_tabel = ?
+              GROUP BY i.id_todo";
 
   $stmt30 = $db->prepare($query30);
   $stmt30->execute([$username, $selectedListId]);
@@ -35,12 +36,38 @@ if (isset($_SESSION['select'])){
   // Check if list items were found
   if (!empty($listDetails)) {
       $listTitle = $listDetails[0]['judul_tabel'];  // List title
-  } else {
-      $listTitle = "No items available for this list.";
+
+      $query31 = "SELECT 
+                      t.judul_tabel,
+                      COUNT(i.id_todo) AS total_tasks, 
+                      SUM(CASE WHEN i.progress = 'Selesai' THEN 1 ELSE 0 END) AS selesai_tasks,
+                      SUM(CASE WHEN i.progress = 'Belum' THEN 1 ELSE 0 END) AS belum_tasks
+                  FROM itemlist AS i
+                  JOIN tabellist AS t ON t.id_tabel = i.id_tabel
+                  WHERE t.username = ? AND t.id_tabel = ?
+                  GROUP BY t.judul_tabel WITH ROLLUP";
+      
+      $stmt31 = $db->prepare($query31);
+      $stmt31->execute([$username, $selectedListId]);
+      $listProgress = $stmt31->fetchAll(PDO::FETCH_ASSOC);
+
+      if(!empty($listDetails[0]['id_todo'])){
+          $totalTasks = $listProgress[0]['total_tasks'];
+          $completedTasks = $listProgress[0]['selesai_tasks'];
+          $uncompletedTasks = $listProgress[0]['belum_tasks'];
+
+          // Calculate the progress percentage (avoid division by zero)
+          $progressPercentage = ($totalTasks > 0) ? ($completedTasks / $totalTasks) * 100 : 0;
+      }
+  } else
+  {
+      $listTitle = $listDetails[0]['judul_tabel'];
   }
-}else{
+}
+else{
   $listTitle = "Please select a list.";
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -275,8 +302,11 @@ if (isset($_SESSION['select'])){
                         <div class="card-body">
                             <h5 class="text-start card-title text-white">Progress</h5>
                             
-                            <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 55%"></div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                                    style="width: <?php echo $progressPercentage; ?>%" 
+                                    aria-valuemin="0" aria-valuemax="100">
+                                </div>
                             </div>
 
                             <div class="mt-4">
@@ -286,16 +316,16 @@ if (isset($_SESSION['select'])){
                                         <td class="text-light fw-bold">Total Task</td>
                                         <td>
                                             <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <p class="fw-bold p-0 m-0 text-white">10</p>
+                                                <p class="fw-bold p-0 m-0 text-white"><?php echo isset($listProgress[0]['total_tasks']) ? $listProgress[0]['total_tasks'] : 0; ?></p>
                                             </div>
                                         </td>
                                     </tr>
 
                                     <tr>
-                                        <td class="text-warning fw-bold">In Progress</td>
+                                        <td class="text-warning fw-bold">Not Done</td>
                                         <td>
                                             <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <p class="fw-bold p-0 m-0 text-warning">20</p>
+                                                <p class="fw-bold p-0 m-0 text-warning"><?php echo isset($listProgress[0]['belum_tasks']) ? $listProgress[0]['belum_tasks'] : 0; ?></p>
                                             </div>
                                         </td>
                                     </tr>
@@ -304,7 +334,7 @@ if (isset($_SESSION['select'])){
                                         <td class="text-success fw-bold">Completed</td>
                                         <td>
                                             <div class="form-check form-check-reverse d-flex justify-content-end">
-                                                <p class="fw-bold p-0 m-0 text-success">30</p>
+                                                <p class="fw-bold p-0 m-0 text-success"><?php echo isset($listProgress[0]['selesai_tasks']) ? $listProgress[0]['selesai_tasks'] : 0; ?></p>
                                             </div>
                                         </td>
                                     </tr>
@@ -325,6 +355,7 @@ if (isset($_SESSION['select'])){
                                 <h5 class="text-start card-title align-self-center me-2"><?= $listTitle ?></h5>
 
                                 <!-- Add Task & Dropdown for Editing List -->
+                                <?php if($listTitle != "Please select a list."):?>
                                 <div class="btn-group dropdown-center">
                                     <button type="button" class="btn btn-primary align-self-center px-3" data-bs-toggle="modal" data-bs-target="#addItemModal<?= $selectedListId ?>">Add Task</button>
                                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
@@ -343,11 +374,12 @@ if (isset($_SESSION['select'])){
                                         </li>
                                     </ul>
                                 </div>
+                                <?php endif;?>
                             </div>
 
                             <!-- Display List Items -->
                             <ul class="list-group list-group-flush text-start">
-                                <?php if (!empty($listDetails)): ?>
+                                <?php if (!empty($listDetails[0]['id_todo'])): ?>
                                     <?php foreach ($listDetails as $task): ?>
                                         <li class="list-group-item d-flex justify-content-between p-2 bg-light">
                                             <!-- Task Name and Progress Checkbox -->

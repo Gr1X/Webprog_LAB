@@ -27,3 +27,20 @@ CREATE TABLE itemlist(
 -- progress VARCHAR(15) DEFAULT "Belum",     -- Sudah atau Belum
 -- nama_item VARCHAR(100) NOT NULL,          -- Nama aktivitas dalam list
 
+
+
+-- SELECT t.judul_tabel, i.id_todo, i.nama_item, i.progress 
+--               FROM itemlist AS i
+--               JOIN tabellist AS t ON t.id_tabel = i.id_tabel
+--               WHERE t.username = 'Kelvin' AND t.id_tabel = 1
+--               GROUP BY i.id_todo;
+
+-- SELECT 
+--     t.judul_tabel,
+--     COUNT(i.id_todo) AS total_tasks, 
+--     SUM(CASE WHEN i.progress = 'Selesai' THEN 1 ELSE 0 END) AS selesai_tasks,
+--     SUM(CASE WHEN i.progress = 'Belum' THEN 1 ELSE 0 END) AS belum_tasks
+-- FROM itemlist AS i
+-- JOIN tabellist AS t ON t.id_tabel = i.id_tabel
+-- WHERE t.username = 'Kelvin' AND t.id_tabel = 1
+-- GROUP BY t.judul_tabel WITH ROLLUP;
