@@ -216,15 +216,23 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                         <img src="https://i.imgur.com/hczKIze.jpg" alt="Profile Image">
 
                         <div class="log-out-info align-self-center text-dark">
-                            <h6> <?php echo $username; ?> </h6>
+                            <h6>
+                                <?php 
+                                // Escape output $username untuk mencegah XSS
+                                echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); 
+                                ?> 
+                            </h6>
                             <p> 
                                 <?php 
                                 // Batasi panjang email maksimal 15 karakter
                                 $max_length = 15;
-                                if (strlen($email) > $max_length) {
-                                    echo substr($email, 0, $max_length) . '...';
+                                // Escape output $email untuk mencegah XSS
+                                $escaped_email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+                                
+                                if (strlen($escaped_email) > $max_length) {
+                                    echo substr($escaped_email, 0, $max_length) . '...';
                                 } else {
-                                    echo $email;
+                                    echo $escaped_email;
                                 }
                                 ?>
                             </p>
@@ -270,19 +278,19 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                         <li class="d-flex justify-content-between">
                             <label class="dropdown-item" style="pointer-events: none;">All</label>
                             <div class="form-check align-self-center m-0 p-0">
-                                <input class="form-check-input mx-3 p-2" type="radio" name="filter" value="all" onchange="this.form.submit()" <?= $filter == 'all' ? 'checked' : '' ?>>
+                                <input class="form-check-input mx-3 p-2" type="radio" name="filter" value="all" onchange="this.form.submit()" <?= htmlspecialchars($filter) == 'all' ? 'checked' : '' ?>>
                             </div>
                         </li>
                         <li class="d-flex justify-content-between m-0 p-0">
                             <label class="dropdown-item" style="pointer-events: none;">Completed</label>
                             <div class="form-check d-flex align-self-center">
-                                <input class="form-check-input mx-3 p-2" type="radio" name="filter" value="selesai" onchange="this.form.submit()" <?= $filter == 'selesai' ? 'checked' : '' ?>>
+                                <input class="form-check-input mx-3 p-2" type="radio" name="filter" value="selesai" onchange="this.form.submit()" <?= htmlspecialchars($filter) == 'selesai' ? 'checked' : '' ?>>
                             </div>
                         </li>
                         <li class="d-flex justify-content-between">
                             <label class="dropdown-item" style="pointer-events: none;">Uncompleted</label>
                             <div class="form-check d-flex align-self-center">
-                                <input class="form-check-input mx-3 p-2" type="radio" name="filter" value="belum" onchange="this.form.submit()" <?= $filter == 'belum' ? 'checked' : '' ?>>
+                                <input class="form-check-input mx-3 p-2" type="radio" name="filter" value="belum" onchange="this.form.submit()" <?= htmlspecialchars($filter) == 'belum' ? 'checked' : '' ?>>
                             </div>
                         </li>
                     </ul>
@@ -411,8 +419,8 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                         <li class="list-group-item d-flex justify-content-between p-2 bg-light">
                                           <form action="editProgress.php" method="POST" class="d-flex align-items-center">
                                               <!-- Task Name and Progress -->
-                                              <input class="form-check-input m-1 p-2" type="checkbox" name="progress" value="<?=$task['progress']?>" <?= $task['progress'] === "Selesai" ? 'checked' : '' ?> onchange="this.form.submit()">
-                                              <input type="hidden" name="id_todo" value="<?= $task['id_todo'] ?>">
+                                              <input class="form-check-input m-1 p-2" type="checkbox" name="progress" value="<?= htmlspecialchars($task['progress'], ENT_QUOTES, 'UTF-8') ?>" <?= $task['progress'] === "Selesai" ? 'checked' : '' ?> onchange="this.form.submit()">
+                                              <input type="hidden" name="id_todo" value="<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>">
                                               <span><?= htmlspecialchars($task['nama_item']) ?></span>
                                           </form>
                                             <!-- Edit/Delete Dropdown for Task -->
@@ -423,13 +431,13 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                                 <ul class="dropdown-menu">
                                                     <!-- Edit Task Option -->
                                                     <li>
-                                                        <button class="dropdown-item fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#editTaskModal<?= $task['id_todo'] ?>">
+                                                        <button class="dropdown-item fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#editTaskModal<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>">
                                                             <i class="fa-solid fa-pen-to-square"></i> Edit
                                                         </button>
                                                     </li>
                                                     <!-- Delete Task Option -->
                                                     <li>
-                                                        <button class="dropdown-item text-danger text-danger fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#deleteTaskModal<?= $task['id_todo'] ?>">
+                                                        <button class="dropdown-item text-danger text-danger fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#deleteTaskModal<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>">
                                                             <i class="fa-solid fa-trash"></i> Delete
                                                         </button>
                                                     </li>
@@ -438,17 +446,17 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                         </li>
 
                                         <!-- Modal for Editing Task -->
-                                        <div class="modal fade" id="editTaskModal<?= $task['id_todo'] ?>" tabindex="-1" aria-labelledby="editTaskModalLabel<?= $task['id_todo'] ?>" aria-hidden="true">
+                                        <div class="modal fade" id="editTaskModal<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>" tabindex="-1" aria-labelledby="editTaskModalLabel<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="editTaskModalLabel<?= $task['id_todo'] ?>">Edit Task</h5>
+                                                        <h5 class="modal-title" id="editTaskModalLabel<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>">Edit Task</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <form action="editItem.php" method="POST">
                                                         <div class="modal-body">
-                                                            <input type="hidden" name="id_todo" value="<?= $task['id_todo'] ?>">
-                                                            <input type="text" class="form-control" required name="nama_item" placeholder="Task Name" value="<?= $task['nama_item'] ?>">
+                                                            <input type="hidden" name="id_todo" value="<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>">
+                                                            <input type="text" class="form-control" required name="nama_item" placeholder="Task Name" value="<?= htmlspecialchars($task['nama_item'], ENT_QUOTES, 'UTF-8') ?>">
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -460,17 +468,17 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                         </div>
 
                                         <!-- Modal for Deleting Task -->
-                                        <div class="modal fade" id="deleteTaskModal<?= $task['id_todo'] ?>" tabindex="-1" aria-labelledby="deleteTaskModalLabel<?= $task['id_todo'] ?>" aria-hidden="true">
+                                        <div class="modal fade" id="deleteTaskModal<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>" tabindex="-1" aria-labelledby="deleteTaskModalLabel<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="deleteTaskModalLabel<?= $task['id_todo'] ?>">Delete Task</h5>
+                                                        <h5 class="modal-title" id="deleteTaskModalLabel<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>">Delete Task</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <form action="deleteItem.php" method="POST">
                                                         <div class="modal-body">
-                                                            <input type="hidden" name="id_todo" value="<?= $task['id_todo'] ?>">
-                                                            <input type="hidden" name="nama_item" value="<?= $task['nama_item'] ?>">
+                                                            <input type="hidden" name="id_todo" value="<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>">
+                                                            <input type="hidden" name="nama_item" value="<?= htmlspecialchars($task['nama_item'], ENT_QUOTES, 'UTF-8') ?>">
                                                             <p class="m-0">Are you sure you want to delete this task?</p>
                                                         </div>
                                                         <div class="modal-footer">
@@ -481,6 +489,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                                 </div>
                                             </div>
                                         </div>
+
                                     <?php endforeach;
                                 }
                                 else{ ?>
@@ -492,16 +501,16 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                     </div>
 
                     <!-- Modal for Adding Item -->
-                    <div class="modal fade" id="addItemModal<?= $tabel['id_tabel'] ?>" tabindex="-1" aria-labelledby="addItemModalLabel<?= $tabel['id_tabel'] ?>" aria-hidden="true">
+                    <div class="modal fade" id="addItemModal<?= htmlspecialchars($tabel['id_tabel'], ENT_QUOTES, 'UTF-8') ?>" tabindex="-1" aria-labelledby="addItemModalLabel<?= htmlspecialchars($tabel['id_tabel'], ENT_QUOTES, 'UTF-8') ?>" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="addItemModalLabel<?= $tabel['id_tabel'] ?>">Add Task to <?= htmlspecialchars($tabel['judul_tabel']) ?></h5>
+                                    <h5 class="modal-title" id="addItemModalLabel<?= htmlspecialchars($tabel['id_tabel'], ENT_QUOTES, 'UTF-8') ?>">Add Task to <?= htmlspecialchars($tabel['judul_tabel'], ENT_QUOTES, 'UTF-8') ?></h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <form action="buatItem.php" method="POST">
                                     <div class="modal-body">
-                                        <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
+                                        <input type="hidden" name="id_tabel" value="<?= htmlspecialchars($tabel['id_tabel'], ENT_QUOTES, 'UTF-8') ?>">
                                         <input type="text" class="form-control mb-3" required name="nama_item" placeholder="Task Name">
                                     </div>
                                     <div class="modal-footer">
@@ -514,17 +523,17 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                     </div>
 
                     <!-- Modal for Editing Table Title -->
-                    <div class="modal fade" id="editTableModal<?= $tabel['id_tabel'] ?>" tabindex="-1" aria-labelledby="editTableModalLabel<?= $tabel['id_tabel'] ?>" aria-hidden="true">
+                    <div class="modal fade" id="editTableModal<?= htmlspecialchars($tabel['id_tabel'], ENT_QUOTES, 'UTF-8') ?>" tabindex="-1" aria-labelledby="editTableModalLabel<?= htmlspecialchars($tabel['id_tabel'], ENT_QUOTES, 'UTF-8') ?>" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="editTableModalLabel<?= $tabel['id_tabel'] ?>">Edit List Title</h5>
+                                    <h5 class="modal-title" id="editTableModalLabel<?= htmlspecialchars($tabel['id_tabel'], ENT_QUOTES, 'UTF-8') ?>">Edit List Title</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <form action="editTabel.php" method="POST">
                                     <div class="modal-body">
-                                        <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
-                                        <input type="text" class="form-control" required name="judul_tabel" placeholder="New List Title" value="<?= htmlspecialchars($tabel['judul_tabel']) ?>">
+                                        <input type="hidden" name="id_tabel" value="<?= htmlspecialchars($tabel['id_tabel'], ENT_QUOTES, 'UTF-8') ?>">
+                                        <input type="text" class="form-control" required name="judul_tabel" placeholder="New List Title" value="<?= htmlspecialchars($tabel['judul_tabel'], ENT_QUOTES, 'UTF-8') ?>">
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -536,16 +545,16 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                     </div>
 
                     <!-- Modal for Deleting Table -->
-                    <div class="modal fade" id="deleteTableModal<?= $tabel['id_tabel'] ?>" tabindex="-1" aria-labelledby="deleteTableModalLabel<?= $tabel['id_tabel'] ?>" aria-hidden="true">
+                    <div class="modal fade" id="deleteTableModal<?= htmlspecialchars($tabel['id_tabel'], ENT_QUOTES, 'UTF-8') ?>" tabindex="-1" aria-labelledby="deleteTableModalLabel<?= htmlspecialchars($tabel['id_tabel'], ENT_QUOTES, 'UTF-8') ?>" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteTableModalLabel<?= $tabel['id_tabel'] ?>">Delete List</h5>
+                                    <h5 class="modal-title" id="deleteTableModalLabel<?= htmlspecialchars($tabel['id_tabel'], ENT_QUOTES, 'UTF-8') ?>">Delete List</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <form action="deleteTabel.php" method="POST">
                                     <div class="modal-body">
-                                        <input type="hidden" name="id_tabel" value="<?= $tabel['id_tabel'] ?>">
+                                        <input type="hidden" name="id_tabel" value="<?= htmlspecialchars($tabel['id_tabel'], ENT_QUOTES, 'UTF-8') ?>">
                                         <p class="m-0">Are you sure you want to delete this list and all its items?</p>
                                     </div>
                                     <div class="modal-footer">
