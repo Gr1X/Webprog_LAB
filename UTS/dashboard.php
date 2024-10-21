@@ -441,18 +441,18 @@ else{
                                         </li>
 
                                         <!-- Modal for Editing Task -->
-                                        <div class="modal fade" id="editTaskModal<?= $task['id_todo'] ?>" tabindex="-1" aria-labelledby="editTaskModalLabel<?= $task['id_todo'] ?>" aria-hidden="true">
+                                        <div class="modal fade" id="editTaskModal<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>" tabindex="-1" aria-labelledby="editTaskModalLabel<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="editTaskModalLabel<?= $task['id_todo'] ?>">Edit Task</h5>
+                                                        <h5 class="modal-title" id="editTaskModalLabel<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>">Edit Task</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <form action="editItem.php" method="POST">
                                                         <div class="modal-body">
-                                                            <input type="hidden" name="id_todo" value="<?= $task['id_todo'] ?>">
+                                                            <input type="hidden" name="id_todo" value="<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>">
                                                             <input type="hidden" name="opsi" value="dashboard">
-                                                            <input type="text" class="form-control" required name="nama_item" placeholder="Task Name" value="<?= htmlspecialchars($task['nama_item']) ?>">
+                                                            <input type="text" class="form-control" required name="nama_item" placeholder="Task Name" value="<?= htmlspecialchars($task['nama_item'], ENT_QUOTES, 'UTF-8') ?>">
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -464,18 +464,18 @@ else{
                                         </div>
 
                                         <!-- Modal for Deleting Task -->
-                                        <div class="modal fade" id="deleteTaskModal<?= $task['id_todo'] ?>" tabindex="-1" aria-labelledby="deleteTaskModalLabel<?= $task['id_todo'] ?>" aria-hidden="true">
+                                        <div class="modal fade" id="deleteTaskModal<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>" tabindex="-1" aria-labelledby="deleteTaskModalLabel<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="deleteTaskModalLabel<?= $task['id_todo'] ?>">Delete Task</h5>
+                                                        <h5 class="modal-title" id="deleteTaskModalLabel<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>">Delete Task</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <form action="deleteItem.php" method="POST">
                                                         <div class="modal-body">
-                                                            <input type="hidden" name="id_todo" value="<?= $task['id_todo'] ?>">
+                                                            <input type="hidden" name="id_todo" value="<?= htmlspecialchars($task['id_todo'], ENT_QUOTES, 'UTF-8') ?>">
                                                             <input type="hidden" name="opsi" value="dashboard">
-                                                            <input type="hidden" name="nama_item" value="<?= $task['nama_item'] ?>">
+                                                            <input type="hidden" name="nama_item" value="<?= htmlspecialchars($task['nama_item'], ENT_QUOTES, 'UTF-8') ?>">
                                                             <p class="m-0">Are you sure you want to delete this task?</p>
                                                         </div>
                                                         <div class="modal-footer">
@@ -497,16 +497,16 @@ else{
                 </div>
 
                 <!-- Modal for Adding New Task -->
-                <div class="modal fade" id="addItemModal<?= $selectedListId ?>" tabindex="-1" aria-labelledby="addItemModalLabel<?= $selectedListId ?>" aria-hidden="true">
+                <div class="modal fade" id="addItemModal<?= htmlspecialchars($selectedListId, ENT_QUOTES, 'UTF-8') ?>" tabindex="-1" aria-labelledby="addItemModalLabel<?= htmlspecialchars($selectedListId, ENT_QUOTES, 'UTF-8') ?>" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addItemModalLabel<?= $selectedListId ?>">Add Task to <?= $listTitle ?></h5>
+                                <h5 class="modal-title" id="addItemModalLabel<?= htmlspecialchars($selectedListId, ENT_QUOTES, 'UTF-8') ?>">Add Task to <?= htmlspecialchars($listTitle) ?></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <form action="buatItem.php" method="POST">
                                 <div class="modal-body">
-                                    <input type="hidden" name="id_tabel" value="<?= $selectedListId ?>">
+                                    <input type="hidden" name="id_tabel" value="<?= htmlspecialchars($selectedListId, ENT_QUOTES, 'UTF-8') ?>">
                                     <input type="hidden" name="opsi" value="dashboard">
                                     <input type="text" class="form-control mb-3" required name="nama_item" placeholder="Task Name">
                                 </div>
@@ -520,18 +520,18 @@ else{
                 </div>
 
                 <!-- Modal for Editing List Title -->
-                <div class="modal fade" id="editTableModal<?= $selectedListId ?>" tabindex="-1" aria-labelledby="editTableModalLabel<?= $selectedListId ?>" aria-hidden="true">
+                <div class="modal fade" id="editTableModal<?= htmlspecialchars($selectedListId, ENT_QUOTES, 'UTF-8') ?>" tabindex="-1" aria-labelledby="editTableModalLabel<?= htmlspecialchars($selectedListId, ENT_QUOTES, 'UTF-8') ?>" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="editTableModalLabel<?= $selectedListId ?>">Edit List Title</h5>
+                                <h5 class="modal-title" id="editTableModalLabel<?= htmlspecialchars($selectedListId, ENT_QUOTES, 'UTF-8') ?>">Edit List Title</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <form action="editTabel.php" method="POST">
                                 <div class="modal-body">
-                                    <input type="hidden" name="id_tabel" value="<?= $selectedListId ?>">
+                                    <input type="hidden" name="id_tabel" value="<?= htmlspecialchars($selectedListId, ENT_QUOTES, 'UTF-8') ?>">
                                     <input type="hidden" name="opsi" value="dashboard">
-                                    <input type="text" class="form-control" required name="judul_tabel" placeholder="New List Title" value="<?= $listTitle ?>">
+                                    <input type="text" class="form-control" required name="judul_tabel" placeholder="New List Title" value="<?= htmlspecialchars($listTitle) ?>">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -543,16 +543,16 @@ else{
                 </div>
 
                 <!-- Modal for Deleting List -->
-                <div class="modal fade" id="deleteTableModal<?= $selectedListId ?>" tabindex="-1" aria-labelledby="deleteTableModalLabel<?= $selectedListId ?>" aria-hidden="true">
+                <div class="modal fade" id="deleteTableModal<?= htmlspecialchars($selectedListId, ENT_QUOTES, 'UTF-8') ?>" tabindex="-1" aria-labelledby="deleteTableModalLabel<?= htmlspecialchars($selectedListId, ENT_QUOTES, 'UTF-8') ?>" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="deleteTableModalLabel<?= $selectedListId ?>">Delete List</h5>
+                                <h5 class="modal-title" id="deleteTableModalLabel<?= htmlspecialchars($selectedListId, ENT_QUOTES, 'UTF-8') ?>">Delete List</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <form action="deleteTabel.php" method="POST">
                                 <div class="modal-body">
-                                    <input type="hidden" name="id_tabel" value="<?= $selectedListId ?>">
+                                    <input type="hidden" name="id_tabel" value="<?= htmlspecialchars($selectedListId, ENT_QUOTES, 'UTF-8') ?>">
                                     <input type="hidden" name="opsi" value="dashboard">
                                     <p class="m-0">Are you sure you want to delete this list and all its items?</p>
                                 </div>
