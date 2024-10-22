@@ -53,6 +53,20 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
         z-index: 1000;
     }
 
+    .btn-success {
+        color: #080651;
+        background-color: #ffffff;
+        border-color: #080651;
+        border-width: 2px;
+    }
+
+    .btn-success:hover {
+        color: #ffffff;
+        background-color: #080651;
+        border-color: #ffffff;
+        border-width: 2px;
+    }
+
     .main-content {
         margin-left: 250px;
         padding: 2rem;
@@ -118,13 +132,38 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
     }
 
     form input {
-        border-radius: 20px;
+        border-radius: 15px;
         padding: 10px 20px;
     }
 
     form button {
         border-radius: 20px;
         padding: 10px 20px;
+    }
+
+    /* BUTTON
+    input[type="text"] {
+        color: #333333;
+        background-color: #f0f0f0; 
+        border: 1px solid #cccccc;
+        padding: 10px;
+        border-radius: 5px;
+    } */
+
+    button[type="submit"] {
+        color: white; 
+        background-color: #080651;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 15px;
+        cursor: pointer;
+    }
+
+    /*Filter By*/
+    .tombol_filter.btn-primary {
+        background-color: #080651;
+        color: white;
+        border-color: #212B44;
     }
 
     .task-card {
