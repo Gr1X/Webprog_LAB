@@ -63,7 +63,7 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
     .btn-success:hover {
         color: #ffffff;
         background-color: #080651;
-        border-color: #ffffff;
+        border-color: #080651;
         border-width: 2px;
     }
 
@@ -134,6 +134,9 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
     form input {
         border-radius: 15px;
         padding: 10px 20px;
+        border: solid;
+        border-width: 2px;
+        border-color: #080651;
     }
 
     form button {
@@ -384,11 +387,11 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                 
                                 <div class="modal-footer">
                                 <button id="closeBtn" type="button" class="btn fw-semibold shadow-sm" data-bs-dismiss="modal" aria-label="Close">
-    <i class='bx bx-x fw-bold fs-4'></i>
-</button>
+                                    <i class='bx bx-x fw-bold fs-4'></i>
+                                </button>
                                     <button id="submitBtn" type="submit" class="btn btn-success fw-semibold shadow-sm">
-    <i class='bx bx-check fw-bold fs-4'></i>
-</button>
+                                    <i class='bx bx-check fw-bold fs-4'></i>
+                                </button>
                                 </div>
                             </form>
                         </div>
