@@ -159,6 +159,26 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
         cursor: pointer;
     }
 
+    #submitBtn {
+        color: white; 
+        background-color: #080651;
+        border: none;
+        padding: 5px 10px; /* Ukuran padding lebih kecil */
+        font-size: 12px; /* Ukuran font lebih kecil */
+        border-radius: 5px; /* Ukuran border radius lebih kecil */
+        cursor: pointer;
+    }
+
+    #closeBtn {
+        color: white;
+        background-color: red; /* Warna background merah */
+        border: none;
+        padding: 5px 10px; /* Ukuran padding */
+        font-size: 12px; /* Ukuran font */
+        border-radius: 5px; /* Ukuran border radius */
+        cursor: pointer;
+    }
+
     /*Filter By*/
     .tombol_filter.btn-primary {
         background-color: #080651;
@@ -363,8 +383,12 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                                 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger fw-semibold shadow-sm" data-bs-dismiss="modal" aria-label="Close"><i class='bx bx-x fw-bold fs-4'></i></button>
-                                    <button type="submit" class="btn btn-success fw-semibold shadow-sm"><i class='bx bx-check fw-bold fs-4'></i></button>
+                                <button id="closeBtn" type="button" class="btn fw-semibold shadow-sm" data-bs-dismiss="modal" aria-label="Close">
+    <i class='bx bx-x fw-bold fs-4'></i>
+</button>
+                                    <button id="submitBtn" type="submit" class="btn btn-success fw-semibold shadow-sm">
+    <i class='bx bx-check fw-bold fs-4'></i>
+</button>
                                 </div>
                             </form>
                         </div>
