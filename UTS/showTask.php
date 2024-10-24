@@ -255,6 +255,76 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
         display: none;
     }
 
+    @media (max-width: 768px){
+        .main-content {
+            margin-left: 40px;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .l-navbar {
+        width: 70px; /* Collapsed width for smaller screens */
+        justify-content: flex-start; /* Align items at the start */
+        }
+
+        .l-navbar h3 {
+            visibility: hidden;
+        }
+
+        .nav_icon{
+            font-size: 25px;
+        }
+
+        .nav_name {
+            display: none; /* Hide nav names in collapsed view */
+        }
+
+        .nav_link {
+            justify-content: space-between; /* Center icons in collapsed state */
+        }
+
+        .log-out-info{
+            display: none;
+        }
+
+        .log-out-card img{
+            width: 50px;
+            height: 50px;
+            margin-bottom: 30px;
+        }
+
+        .log-out-container{
+            margin-top: auto;
+            width: 100%;
+            padding: 15px 0;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .top_content h2{
+            display: none;
+        }
+
+        .top_content p{
+            display: none;
+        }
+
+        .top_content input{
+            width: 175px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .log-out-card {
+            flex-direction: column;
+            justify-content: center;
+            margin: 10px 5px;
+        }
+
+        .log-out-info {
+            width: 100%; /* Full width for the info */
+            margin-bottom: 10px; /* Space between info and button */
+        }
+    }
 </style>
 
 <body>
