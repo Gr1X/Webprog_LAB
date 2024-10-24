@@ -53,6 +53,20 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
         z-index: 1000;
     }
 
+    .btn-success {
+        color: #080651;
+        background-color: #ffffff;
+        border-color: #080651;
+        border-width: 2px;
+    }
+
+    .btn-success:hover {
+        color: #ffffff;
+        background-color: #080651;
+        border-color: #080651;
+        border-width: 2px;
+    }
+
     .main-content {
         margin-left: 250px;
         padding: 2rem;
@@ -118,13 +132,61 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
     }
 
     form input {
-        border-radius: 20px;
+        border-radius: 15px;
         padding: 10px 20px;
+        border: solid;
+        border-width: 2px;
+        border-color: #080651;
     }
 
     form button {
         border-radius: 20px;
         padding: 10px 20px;
+    }
+
+    /* BUTTON
+    input[type="text"] {
+        color: #333333;
+        background-color: #f0f0f0; 
+        border: 1px solid #cccccc;
+        padding: 10px;
+        border-radius: 5px;
+    } */
+
+    button[type="submit"] {
+        color: white; 
+        background-color: #080651;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 15px;
+        cursor: pointer;
+    }
+
+    #submitBtn {
+        color: white; 
+        background-color: #080651;
+        border: none;
+        padding: 5px 10px; /* Ukuran padding lebih kecil */
+        font-size: 12px; /* Ukuran font lebih kecil */
+        border-radius: 5px; /* Ukuran border radius lebih kecil */
+        cursor: pointer;
+    }
+
+    #closeBtn {
+        color: white;
+        background-color: red; /* Warna background merah */
+        border: none;
+        padding: 5px 10px; /* Ukuran padding */
+        font-size: 12px; /* Ukuran font */
+        border-radius: 5px; /* Ukuran border radius */
+        cursor: pointer;
+    }
+
+    /*Filter By*/
+    .tombol_filter.btn-primary {
+        background-color: #080651;
+        color: white;
+        border-color: #212B44;
     }
 
     .task-card {
@@ -193,6 +255,87 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
         display: none;
     }
 
+    @media (max-width: 768px){
+        .main-content {
+            margin-left: 40px;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .l-navbar {
+        width: 70px; /* Collapsed width for smaller screens */
+        justify-content: flex-start; /* Align items at the start */
+        }
+
+        .l-navbar h3 {
+            visibility: hidden;
+        }
+
+        .nav_icon{
+            font-size: 25px;
+        }
+
+        .nav_name {
+            display: none; /* Hide nav names in collapsed view */
+        }
+
+        .nav_link {
+            justify-content: space-between; /* Center icons in collapsed state */
+        }
+
+        .log-out-info{
+            display: none;
+        }
+
+        .log-out-card img{
+            width: 50px;
+            height: 50px;
+            margin-bottom: 30px;
+        }
+
+        .log-out-container{
+            margin-top: auto;
+            width: 100%;
+            padding: 15px 0;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .top_content h2{
+            display: none;
+        }
+
+        .top_content p{
+            display: none;
+        }
+
+        .top_content input{
+            width: 175px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .log-out-card {
+            flex-direction: column;
+            justify-content: center;
+            margin: 10px 5px;
+        }
+
+        .log-out-info {
+            width: 100%; /* Full width for the info */
+            margin-bottom: 10px; /* Space between info and button */
+        }
+    }
+
+    @media (max-width: 1024px) and (min-width: 768px) {
+        .top_content input{
+            width: 150px;
+            justify-content: center;
+        }
+
+        .card-title{
+            max-width: 85px;
+        }
+    }
 </style>
 
 <body>
@@ -324,8 +467,12 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                                 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger fw-semibold shadow-sm" data-bs-dismiss="modal" aria-label="Close"><i class='bx bx-x fw-bold fs-4'></i></button>
-                                    <button type="submit" class="btn btn-success fw-semibold shadow-sm"><i class='bx bx-check fw-bold fs-4'></i></button>
+                                <button id="closeBtn" type="button" class="btn fw-semibold shadow-sm" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class='bx bx-x fw-bold fs-4'></i>
+                                </button>
+                                    <button id="submitBtn" type="submit" class="btn btn-success fw-semibold shadow-sm">
+                                    <i class='bx bx-check fw-bold fs-4'></i>
+                                </button>
                                 </div>
                             </form>
                         </div>
