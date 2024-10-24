@@ -24,6 +24,5 @@ if($opsi == 'showtask'){
   header('location: showTask.php');
 }
 else if($opsi == 'dashboard'){
-  
-  header(header: 'location: dashboard.php');
+  header( 'location: dashboard.php');
 }
