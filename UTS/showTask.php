@@ -325,6 +325,17 @@ $tabellist = $stmt5->fetchAll(PDO::FETCH_ASSOC);
             margin-bottom: 10px; /* Space between info and button */
         }
     }
+
+    @media (max-width: 1024px) and (min-width: 768px) {
+        .top_content input{
+            width: 150px;
+            justify-content: center;
+        }
+
+        .card-title{
+            max-width: 85px;
+        }
+    }
 </style>
 
 <body>
